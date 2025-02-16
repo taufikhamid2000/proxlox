@@ -25,16 +25,19 @@ export default function Header() {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
     setTheme(newTheme);
     localStorage.setItem('theme', newTheme);
-
     document.documentElement.classList.toggle('dark', newTheme === 'dark');
   };
 
   return (
     <header className="header">
       <Link href="/" className="logo">
-        EduBridge
+        Proxlox
       </Link>
       <nav>
+        <button onClick={toggleTheme} className="btn" aria-label="Toggle theme">
+          {theme === 'dark' ? '🌞' : '🌙'}
+        </button>
+
         {user ? (
           <>
             <Link href="/dashboard" className="btn">
@@ -60,10 +63,6 @@ export default function Header() {
             </Link>
           </>
         )}
-
-        <button onClick={toggleTheme} className="btn" aria-label="Toggle theme">
-          {theme === 'dark' ? '🌞' : '🌙'}
-        </button>
       </nav>
     </header>
   );

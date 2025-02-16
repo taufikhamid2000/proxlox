@@ -8,16 +8,16 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>EduBridge | Empowering Students and Educators</title>
+        <title>Proxlox | Buy Limited Drops with Ease</title>
         <meta
           name="description"
-          content="EduBridge connects students and educators with tools to learn, earn, and grow. Join a thriving community today!"
+          content="Skip the hassle of waiting in lines. Proxlox helps you secure limited-edition items at a fair, transparent markup."
         />
         <meta
           name="keywords"
-          content="education platform, student tools, earn while learning, EduBridge features"
+          content="SVG resale, personal shopper, limited edition drops, buy rare items, Proxlox marketplace"
         />
-        <meta name="author" content="EduBridge Team" />
+        <meta name="author" content="Proxlox Team" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta charSet="UTF-8" />
         <script
@@ -26,82 +26,119 @@ export default function Home() {
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'Organization',
-              name: 'EduBridge',
-              url: 'https://edubridge-sigma.vercel.app/',
+              name: 'Proxlox',
+              url: 'https://proxlox.vercel.app/',
               description:
-                'Empowering students and educators with tools to learn, earn, and grow.',
+                'Proxlox connects buyers with trusted resellers for exclusive limited-edition products.',
               sameAs: [
-                'https://www.facebook.com/edubridge',
-                'https://www.twitter.com/edubridge',
+                'https://www.facebook.com/proxlox',
+                'https://www.twitter.com/proxlox',
               ],
             }),
           }}
         />
       </Head>
+
       <div>
         <Header />
 
         {/* Hero Section */}
         <section className="heroSection">
-          <h1>Empowering Students and Educators to Succeed</h1>
+          <h1>Skip the Lines, Secure Your Limited Drops</h1>
           <p>
-            Discover tools, resources, and a community to support learning,
-            entrepreneurship, and career growth.
+            Get exclusive items without the hassle. Proxlox connects buyers with
+            trusted resellers for limited-edition drops.
           </p>
-          <Link href="/sign-up">
-            <button>Get Started Today</button>
-          </Link>
+          <div>
+            <Link href="/browse">
+              <button>Browse Available Items</button>
+            </Link>
+            <Link href="/personal-shopper">
+              <button style={{ marginLeft: '10px' }}>
+                Request Personal Shopper
+              </button>
+            </Link>
+          </div>
         </section>
 
-        {/* Features Section */}
+        {/* How It Works Section */}
         <section className="featuresSection">
-          <h2>Why Choose EduBridge?</h2>
+          <h2>How It Works</h2>
           <div className="features">
             <div className="feature">
-              <h3>UYE</h3>
+              <h3>1. Browse Limited Items</h3>
               <p>
-                Launch and grow your business on a dedicated eCommerce platform
-                for students.
+                Find exclusive items already secured by resellers at a fair,
+                transparent markup.
               </p>
             </div>
             <div className="feature">
-              <h3>Veyoyee</h3>
+              <h3>2. Personal Shopper Service</h3>
               <p>
-                Earn rewards while contributing to surveys and research that
-                matter.
+                Need something specific? Hire a personal shopper to purchase it
+                for you.
               </p>
             </div>
             <div className="feature">
-              <h3>SlideShare</h3>
+              <h3>3. Secure Payments</h3>
               <p>
-                Share study materials, help others, and earn extra income
-                effortlessly.
+                Choose from multiple payment options with buyer protection in
+                place.
               </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Quick Links Section */}
+        {/* Features Section */}
+        <section className="featuresSection">
+          <h2>Explore Proxlox</h2>
+          <div className="features">
+            <div className="feature">
+              <h3>
+                <Link href="/about">About Us</Link>
+              </h3>
+              <p>Learn what Proxlox is all about and how we operate.</p>
+            </div>
+            <div className="feature">
+              <h3>
+                <Link href="/privacy">Privacy Policy</Link>
+              </h3>
+              <p>See how we handle your data and keep things secure.</p>
+            </div>
+            <div className="feature">
+              <h3>
+                <Link href="/terms">Terms & Conditions</Link>
+              </h3>
+              <p>Understand the rules and guidelines of using our platform.</p>
+            </div>
+            <div className="feature">
+              <h3>
+                <Link href="/contact">Contact Us</Link>
+              </h3>
+              <p>Have questions? Reach out to us anytime.</p>
             </div>
           </div>
         </section>
 
         {/* Testimonials Section */}
         <section className="testimonialsSection">
-          <h2>What Our Users Say</h2>
+          <h2>What Buyers Say</h2>
           <p>
-            "StudentHub helped me start my own business while still in college!"
-            - Aiman
+            "Proxlox helped me get my hands on a limited-edition drop without
+            wasting hours in line!" - Adam
           </p>
-          <p>
-            "I love how easy it is to share notes and earn rewards." - Sarah
-          </p>
+          <p>"I love the personal shopper option. No more FOMO!" - Sarah</p>
         </section>
 
         {/* Call-to-Action Section */}
         <section className="ctaSection">
-          <h2>Join Us Today</h2>
+          <h2>Start Shopping Today</h2>
           <p>
-            Be part of a growing community of students and educators making a
-            difference.
+            Get access to exclusive products, secured and delivered hassle-free.
           </p>
-          <Link href="/sign-up">
-            <button>Sign Up Now</button>
+          <Link href="/browse">
+            <button>Browse Now</button>
           </Link>
         </section>
 

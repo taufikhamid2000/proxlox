@@ -177,6 +177,17 @@ button:hover {
   transform: scale(1.05) translateY(-5px);
 }
 
+.feature a {
+  color: var(--text-color);
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.feature a:hover {
+  text-decoration: underline;
+}
+
 .testimonialsSection p {
   font-style: italic;
   animation: slideInFromRight 1.5s ease-out;

@@ -4,7 +4,6 @@ import {
   FiMenu,
   FiHome,
   FiUser,
-  FiBook,
   FiShoppingCart,
   FiMessageCircle,
   FiSettings,
@@ -23,12 +22,11 @@ export default function Sidebar({
   const [isOpen, setIsOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
 
-  // ✅ Fix: Set theme from localStorage immediately to prevent flicker
   const [theme, setTheme] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('theme') || 'dark';
     }
-    return 'dark'; // Default if localStorage is unavailable
+    return 'dark';
   });
 
   useEffect(() => {
@@ -48,7 +46,6 @@ export default function Sidebar({
     onToggle(isOpen);
   }, [isOpen, onToggle]);
 
-  // ✅ Apply dark mode class based on state
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
   }, [theme]);
@@ -76,7 +73,7 @@ export default function Sidebar({
       <aside
         className={`${styles.sidebar} ${isOpen ? styles.open : ''} ${isMobile ? styles.mobile : ''}`}
       >
-        <div className={styles.logo}>EduBridge</div>
+        <div className={styles.logo}>Proxlox</div>
         <nav>
           <Link href="/dashboard">
             <FiHome /> Dashboard
@@ -84,11 +81,8 @@ export default function Sidebar({
           <Link href="/profile">
             <FiUser /> My Profile
           </Link>
-          <Link href="/resources">
-            <FiBook /> Resources
-          </Link>
           <Link href="/marketplace">
-            <FiShoppingCart /> Business Tools
+            <FiShoppingCart /> Marketplace
           </Link>
           <Link href="/community">
             <FiMessageCircle /> Community
@@ -97,7 +91,6 @@ export default function Sidebar({
             <FiSettings /> Settings
           </Link>
 
-          {/* ✅ Dark Mode Toggle Button */}
           <button className={styles.themeToggle} onClick={toggleTheme}>
             {theme === 'dark' ? <FiSun /> : <FiMoon />}
             {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}

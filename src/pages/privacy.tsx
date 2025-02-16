@@ -1,6 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
-// pages/QnA.tsx
-
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import styles from '@/styles/Shared.module.css';
@@ -13,11 +10,10 @@ export default function Privacy() {
 
       {/* Introduction */}
       <section className={styles.introSection}>
-        <h1>Privacy Policy (Because, You Know, It’s Required)</h1>
+        <h1>Privacy Policy (Because You Deserve to Know)</h1>
         <p>
-          Let’s cut to the chase: you want to know if we’re secretly selling
-          your data to alien overlords. Short answer: no. Long answer? Well,
-          keep reading.
+          Let’s be real: nobody actually reads these, but if you’re here, you
+          probably care. So, here’s the deal—no nonsense, no legal jargon.
         </p>
       </section>
 
@@ -28,9 +24,10 @@ export default function Privacy() {
         </div>
         <div className={styles.answer}>
           <p>
-            Just the basics: your name, email, and anything else you willingly
-            hand over. We’re not hackers. We just need enough to make things
-            work. Chill. You're welcome.
+            Just what we need to make Proxlox work: - Your name, email, and
+            payment info (so you can buy or sell). - Shipping details (so you
+            can actually get your stuff). - Transaction history (to prevent
+            fraud). That’s it. No creepy tracking.
           </p>
         </div>
 
@@ -39,8 +36,8 @@ export default function Privacy() {
         </div>
         <div className={styles.answer}>
           <p>
-            Nope. Your data stays with us. Frankly, we’re too busy building cool
-            stuff to bother selling your email address to sketchy advertisers.
+            No. Not to advertisers, not to third parties, not even to sketchy
+            marketers offering us “business growth solutions.”
           </p>
         </div>
 
@@ -49,9 +46,9 @@ export default function Privacy() {
         </div>
         <div className={styles.answer}>
           <p>
-            Yes, but not the chocolate chip kind (sadly). These cookies help our
-            site function. If you don’t like it, you can block them—but don’t
-            blame us when things break.
+            Yes, but only to keep things running smoothly. No invasive tracking,
+            just basic stuff like keeping you logged in and remembering your
+            cart.
           </p>
         </div>
 
@@ -60,9 +57,19 @@ export default function Privacy() {
         </div>
         <div className={styles.answer}>
           <p>
-            As secure as humanly possible. We’ve got firewalls, encryption, and
-            other techie stuff. But hey, if you use "password123," we can’t help
-            you there.
+            As secure as we can make it. We use encryption, firewalls, and fraud
+            prevention tools. But if you use “password123,” you’re on your own.
+          </p>
+        </div>
+
+        <div className={styles.question}>
+          <h2>What happens if I get scammed?</h2>
+        </div>
+        <div className={styles.answer}>
+          <p>
+            We act as a middleman. Payments are held until the buyer confirms
+            they got the item. If there’s an issue, we step in. No shady deals,
+            no ghost sellers.
           </p>
         </div>
 
@@ -71,28 +78,29 @@ export default function Privacy() {
         </div>
         <div className={styles.answer}>
           <p>
-            Absolutely. Drop us a message, and we’ll nuke your data from orbit.
-            (Okay, not literally, but you get the point.)
+            Absolutely. Contact us, and we’ll wipe your data from our system.
+            Just know that we keep transaction records (for legal reasons) even
+            after deletion.
           </p>
         </div>
 
         <div className={styles.question}>
-          <h2>Will this policy ever change?</h2>
+          <h2>Will this policy change?</h2>
         </div>
         <div className={styles.answer}>
           <p>
-            Probably. If it does, we’ll let you know. No surprises, no fine
-            print. We’re not those people.
+            Probably, but we’ll let you know if it does. No fine print
+            surprises.
           </p>
         </div>
       </section>
 
       {/* CTA */}
       <section className={styles.ctaSection}>
-        <h2>Got More Questions?</h2>
+        <h2>Still Got Questions?</h2>
         <p>
-          If you’re still paranoid, feel free to reach out. We’ll clear up your
-          concerns—or at least make you feel slightly better about trusting us.
+          If you’re still worried, reach out. We’ll answer your concerns (or at
+          least pretend to until you feel better).
         </p>
         <Link href="/contact" passHref>
           <button className="btn">Contact Us</button>

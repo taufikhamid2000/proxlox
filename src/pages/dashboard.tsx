@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { supabase } from '@/lib/supabase';
@@ -39,31 +38,31 @@ export default function Dashboard() {
 
         <section className={styles.quickActions}>
           <div className={styles.card}>
-            <h3>📚 Resources</h3>
-            <p>Browse study materials and shared documents.</p>
+            <h3>🛒 Marketplace</h3>
+            <p>Browse and purchase limited-edition items.</p>
           </div>
           <div className={styles.card}>
-            <h3>🛍️ Marketplace</h3>
-            <p>View and manage your online sales.</p>
+            <h3>🛍️ Personal Shopper</h3>
+            <p>Request a personal shopper to buy exclusive products.</p>
           </div>
           <div className={styles.card}>
-            <h3>🎓 Community</h3>
-            <p>Join discussions, webinars, and student groups.</p>
+            <h3>💬 Community</h3>
+            <p>Join discussions, connect with others, and stay updated.</p>
           </div>
         </section>
 
         <section className={styles.activity}>
           <h2>Recent Activity</h2>
           <ul>
-            <li>✅ Completed "Intro to Python"</li>
-            <li>📤 Uploaded new study notes</li>
-            <li>💰 Earned 10 points in Veyoyee rewards</li>
+            <li>🛍️ Purchased a limited-edition sneaker</li>
+            <li>📩 Submitted a personal shopper request</li>
+            <li>💬 Joined the exclusive drops discussion</li>
           </ul>
         </section>
 
         <section className={styles.announcements}>
           <h2>📢 Announcements</h2>
-          <p>New scholarship applications open this month! Apply now.</p>
+          <p>New rare drops are coming soon. Stay tuned!</p>
         </section>
       </div>
     </div>
