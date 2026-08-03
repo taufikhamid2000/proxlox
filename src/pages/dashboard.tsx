@@ -7,13 +7,6 @@ import Reveal from '@/components/Reveal';
 import { User } from '@supabase/supabase-js';
 import styles from '@/styles/Dashboard.module.css';
 
-const stats = [
-  { label: 'Active Orders', value: '3' },
-  { label: 'Saved This Month', value: '$142' },
-  { label: 'Pending Requests', value: '1' },
-  { label: 'Community Posts', value: '12' },
-];
-
 const quickActions = [
   {
     href: '/marketplace',
@@ -35,15 +28,46 @@ const quickActions = [
   },
 ];
 
-const recentActivity = [
-  { icon: '🛍️', text: 'Purchased a limited-edition sneaker', time: '2h ago' },
-  { icon: '📩', text: 'Submitted a personal shopper request', time: '1d ago' },
-  { icon: '💬', text: 'Joined the exclusive drops discussion', time: '3d ago' },
-];
+type Stat = { label: string; value: string };
+type ActivityItem = { icon: string; text: string; time: string; createdAt: string };
+
+/**
+ * Runs a stat query and swallows the failure (e.g. the table doesn't
+ * exist yet — orders/personal_shopper_requests have no migration in this
+ * repo, see supabase/migrations) so one missing table can't blank out
+ * the whole stat row. Returns '—' instead of crashing.
+ */
+async function safeCount(query: PromiseLike<{ count: number | null; error: unknown }>): Promise<string> {
+  try {
+    const { count, error } = await query;
+    if (error || count === null) return '—';
+    return String(count);
+  } catch {
+    return '—';
+  }
+}
+
+function timeAgo(iso: string): string {
+  const diffMs = Date.now() - new Date(iso).getTime();
+  const mins = Math.floor(diffMs / 60000);
+  if (mins < 1) return 'just now';
+  if (mins < 60) return `${mins}m ago`;
+  const hours = Math.floor(mins / 60);
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.floor(hours / 24);
+  return `${days}d ago`;
+}
 
 export default function Dashboard() {
   const [user, setUser] = useState<User | null>(null);
   const [formattedDate, setFormattedDate] = useState<string | null>(null);
+  const [stats, setStats] = useState<Stat[]>([
+    { label: 'Active Orders', value: '—' },
+    { label: 'Saved This Month', value: '—' },
+    { label: 'Pending Requests', value: '—' },
+    { label: 'Community Posts', value: '—' },
+  ]);
+  const [recentActivity, setRecentActivity] = useState<ActivityItem[]>([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -51,9 +75,10 @@ export default function Dashboard() {
       const { data } = await supabase.auth.getSession();
       if (!data.session) {
         router.push('/sign-in');
-      } else {
-        setUser(data.session.user);
+        return;
       }
+      setUser(data.session.user);
+      loadDashboardData(data.session.user.id);
     };
 
     checkUser();
@@ -61,6 +86,114 @@ export default function Dashboard() {
     const today = new Date();
     setFormattedDate(today.toLocaleDateString('en-GB'));
   }, [router]);
+
+  const loadDashboardData = async (userId: string) => {
+    const monthStart = new Date();
+    monthStart.setDate(1);
+    monthStart.setHours(0, 0, 0, 0);
+
+    const [activeOrders, pendingRequests, communityPosts, savedRows] = await Promise.all([
+      safeCount(
+        supabase
+          .from('orders')
+          .select('id', { count: 'exact', head: true })
+          .eq('user_id', userId)
+          .eq('status', 'active')
+      ),
+      safeCount(
+        supabase
+          .from('personal_shopper_requests')
+          .select('id', { count: 'exact', head: true })
+          .eq('user_id', userId)
+          .eq('status', 'pending')
+      ),
+      safeCount(
+        supabase
+          .from('community_posts')
+          .select('id', { count: 'exact', head: true })
+          .eq('user_id', userId)
+      ),
+      supabase
+        .from('orders')
+        .select('amount_saved')
+        .eq('user_id', userId)
+        .eq('status', 'completed')
+        .gte('created_at', monthStart.toISOString())
+        .then(
+          (res) => res,
+          () => ({ data: null, error: true })
+        ),
+    ]);
+
+    const savedTotal =
+      savedRows.data?.reduce((sum: number, row: { amount_saved: number | null }) => sum + (row.amount_saved || 0), 0) ??
+      null;
+
+    setStats([
+      { label: 'Active Orders', value: activeOrders },
+      { label: 'Saved This Month', value: savedTotal !== null ? `$${savedTotal}` : '—' },
+      { label: 'Pending Requests', value: pendingRequests },
+      { label: 'Community Posts', value: communityPosts },
+    ]);
+
+    const [orders, requests, posts] = await Promise.all([
+      supabase
+        .from('orders')
+        .select('item_name, created_at')
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false })
+        .limit(3)
+        .then(
+          (res) => res.data || [],
+          () => []
+        ),
+      supabase
+        .from('personal_shopper_requests')
+        .select('item_name, created_at')
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false })
+        .limit(3)
+        .then(
+          (res) => res.data || [],
+          () => []
+        ),
+      supabase
+        .from('community_posts')
+        .select('content, created_at')
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false })
+        .limit(3)
+        .then(
+          (res) => res.data || [],
+          () => []
+        ),
+    ]);
+
+    const combined: ActivityItem[] = [
+      ...orders.map((o: { item_name: string; created_at: string }) => ({
+        icon: '🛍️',
+        text: `Purchased ${o.item_name}`,
+        time: timeAgo(o.created_at),
+        createdAt: o.created_at,
+      })),
+      ...requests.map((r: { item_name: string; created_at: string }) => ({
+        icon: '📩',
+        text: `Requested a personal shopper for ${r.item_name}`,
+        time: timeAgo(r.created_at),
+        createdAt: r.created_at,
+      })),
+      ...posts.map((p: { content: string; created_at: string }) => ({
+        icon: '💬',
+        text: p.content.length > 60 ? `${p.content.slice(0, 60)}…` : p.content,
+        time: timeAgo(p.created_at),
+        createdAt: p.created_at,
+      })),
+    ]
+      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+      .slice(0, 5);
+
+    setRecentActivity(combined);
+  };
 
   return (
     <AppShell>
@@ -107,17 +240,21 @@ export default function Dashboard() {
               <div className={styles.aside}>
                 <section className={styles.activity}>
                   <h2 className={styles.sectionTitle}>Recent Activity</h2>
-                  <ul>
-                    {recentActivity.map((item, i) => (
-                      <li key={i} className={styles.activityItem}>
-                        <span className={styles.activityIcon}>{item.icon}</span>
-                        <span className={styles.activityText}>
-                          <p>{item.text}</p>
-                          <span>{item.time}</span>
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
+                  {recentActivity.length === 0 ? (
+                    <p className={styles.statLabel}>No activity yet — go browse the marketplace!</p>
+                  ) : (
+                    <ul>
+                      {recentActivity.map((item, i) => (
+                        <li key={i} className={styles.activityItem}>
+                          <span className={styles.activityIcon}>{item.icon}</span>
+                          <span className={styles.activityText}>
+                            <p>{item.text}</p>
+                            <span>{item.time}</span>
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </section>
 
                 <section className={styles.announcements}>
