@@ -12,6 +12,7 @@ import {
   FiSettings,
   FiSun,
   FiMoon,
+  FiLogOut,
 } from 'react-icons/fi';
 import { signOut } from '@/lib/auth';
 
@@ -98,9 +99,11 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           <button
             type="button"
             onClick={() => signOut()}
-            className="cursor-pointer rounded-full px-4 py-2 text-sm font-medium text-navFgMuted transition-colors hover:bg-navHoverBg hover:text-destructive"
+            aria-label="Sign out"
+            className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-lg text-navFgMuted transition-colors hover:bg-navHoverBg hover:text-destructive sm:h-auto sm:w-auto sm:rounded-full sm:px-4 sm:py-2"
           >
-            Sign Out
+            <FiLogOut size={18} className="sm:hidden" />
+            <span className="hidden text-sm font-medium sm:inline">Sign Out</span>
           </button>
         </div>
       </header>
