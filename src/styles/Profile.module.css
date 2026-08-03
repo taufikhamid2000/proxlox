@@ -36,6 +36,123 @@
   }
 }
 
+/* Profile identity card — avatar + name anchored top-left (where eyes
+   land first on a profile page) instead of the centered form-card look
+   shared.mainContent uses for actual forms. Wider than mainContent since
+   this is an identity page, not a compact form. */
+.profileWrap {
+  width: 100%;
+  max-width: 860px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+@media (min-width: 640px) {
+  .profileWrap {
+    margin: 40px auto;
+    padding: 0 24px;
+  }
+}
+
+.profileCard {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+  background: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.avatar {
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #ffffff;
+  background: linear-gradient(135deg, #ff3ea5, #ff8a3d);
+  overflow: hidden;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.identity {
+  flex: 1;
+  min-width: 180px;
+  text-align: left;
+}
+
+.identity h1 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.identity p {
+  margin: 4px 0 0;
+  font-size: 0.9rem;
+  color: var(--nav-fg-muted);
+}
+
+.editLink {
+  flex-shrink: 0;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.editLink:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* Trust/stat row — join date + activity counts, the signals that make
+   an account read as real rather than a bare form submission. */
+.statRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.statChip {
+  background: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  text-align: left;
+}
+
+.statChip strong {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #ff3ea5, #ff8a3d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.statChip span {
+  font-size: 0.78rem;
+  color: var(--nav-fg-muted);
+}
+
 /* Footer Styling */
 .footerContainer {
   background: var(--background);
