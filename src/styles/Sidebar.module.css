@@ -1,38 +1,47 @@
-/* Sidebar */
+/* Sidebar — static column on desktop, slide-in drawer on mobile, styled
+   with the shared nav-chrome tokens (see globals.css) to match the
+   duitduit app-shell sidebar. */
 .sidebar {
-  width: 250px;
+  width: 224px;
   height: 100vh;
-  background: var(--bg-color);
-  color: var(--fg-color);
+  background: var(--nav-bg);
+  color: var(--nav-fg);
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  gap: 4px;
+  padding: 24px 16px;
   position: fixed;
   top: 0;
-  left: -250px;
-  transition: transform 0.3s ease-in-out;
+  left: 0;
+  border-right: 1px solid var(--nav-border);
+  transition: transform 0.2s ease-in-out;
   z-index: 1000;
 }
 
-/* Sidebar Open */
-.sidebar.open {
-  transform: translateX(250px);
-  left: 10;
+.logo {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--nav-fg);
+  padding: 0 12px 20px;
 }
 
 /* Sidebar Links */
 .sidebar nav {
   display: flex;
   flex-direction: column;
+  gap: 4px;
 }
 
-/* Sidebar Links */
 .sidebar nav a {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 10px;
-  padding: 10px 15px;
-  color: var(--link-color);
+  min-height: 44px;
+  padding: 0 12px;
+  border-radius: 8px;
+  color: var(--nav-fg-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
   text-decoration: none;
   transition:
     background 0.2s,
@@ -40,64 +49,67 @@
 }
 
 .sidebar nav a:hover {
-  background: var(--hover-bg);
-  color: var(--hover-color);
+  background: var(--nav-hover-bg);
+  color: var(--nav-fg);
 }
 
-/* ✅ Dark Mode Toggle */
+/* Theme Toggle */
 .themeToggle {
-  margin-top: 15px;
-  padding: 10px;
-  background: var(--button-bg);
-  color: var(--both);
+  margin-top: 12px;
+  min-height: 44px;
+  padding: 0 12px;
+  background: transparent;
+  color: var(--nav-fg-muted);
   border: none;
   cursor: pointer;
   text-align: left;
   display: flex;
   align-items: center;
   gap: 10px;
-  border-radius: 5px;
-  font-size: 1rem;
-  transition: background 0.2s;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
 }
 
 .themeToggle:hover {
-  background: var(--button-hover-bg);
+  background: var(--nav-hover-bg);
+  color: var(--nav-fg);
 }
 
 /* Logout Button */
 .logout {
   margin-top: auto;
-  padding: 10px;
-  background: var(--danger-bg);
-  color: var(--danger-text);
+  min-height: 44px;
+  padding: 0 12px;
+  background: transparent;
+  color: var(--destructive);
   border: none;
   cursor: pointer;
   text-align: left;
   display: flex;
   align-items: center;
   gap: 10px;
-  border-radius: 5px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
   transition: background 0.2s;
 }
 
 .logout:hover {
-  background: var(--danger-hover-bg);
+  background: var(--nav-hover-bg);
 }
 
-/* Overlay Effect */
+/* Overlay Effect (mobile drawer backdrop) */
 .overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
   visibility: hidden;
   opacity: 0;
   transition:
-    opacity 0.3s ease-in-out,
-    visibility 0.3s;
+    opacity 0.2s ease-in-out,
+    visibility 0.2s;
   z-index: 999;
 }
 
@@ -106,41 +118,51 @@
   opacity: 1;
 }
 
-/* Mobile Adjustments */
+/* Mobile Adjustments — sidebar becomes an off-canvas drawer below 1024px */
 @media (max-width: 1024px) {
   .sidebar {
-    left: -250px;
-    position: fixed;
+    width: 256px;
+    transform: translateX(-100%);
+    box-shadow: none;
   }
 
   .sidebar.open {
-    transform: translateX(0px);
-    left: 0;
+    transform: translateX(0);
+    box-shadow: 0 0 24px rgba(0, 0, 0, 0.25);
+  }
+}
+
+@media (min-width: 1025px) {
+  .sidebar {
+    transform: translateX(0);
   }
 }
 
 /* Menu Button */
 .menuButton {
   position: fixed;
-  top: 15px;
-  left: 15px;
-  color: var(--both);
-  border: steelblue;
-  padding: 10px;
+  top: 12px;
+  left: 12px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--nav-fg);
+  background: var(--nav-bg);
+  border: 1px solid var(--nav-border);
   cursor: pointer;
-  font-size: 1.5rem;
-  border-radius: 5px;
+  font-size: 1.25rem;
+  border-radius: 8px;
   z-index: 1001;
-  transition: opacity 0.3s ease-in-out;
 }
 
 .menuButton:hover {
-  background: var(--fg-accent);
-  color: var(--both);
+  background: var(--nav-hover-bg);
 }
 
-/* Hide the menu button when the sidebar is open */
-.sidebar.open ~ .menuButton {
-  opacity: 0;
-  pointer-events: none;
+@media (min-width: 1025px) {
+  .menuButton {
+    display: none;
+  }
 }

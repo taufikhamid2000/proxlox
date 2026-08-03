@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import {
   FiMenu,
@@ -14,11 +15,20 @@ import {
 import { signOut } from '@/lib/auth';
 import styles from '@/styles/Sidebar.module.css';
 
+const navLinks = [
+  { href: '/dashboard', label: 'Dashboard', icon: FiHome },
+  { href: '/profile', label: 'My Profile', icon: FiUser },
+  { href: '/marketplace', label: 'Marketplace', icon: FiShoppingCart },
+  { href: '/community', label: 'Community', icon: FiMessageCircle },
+  { href: '/settings', label: 'Settings', icon: FiSettings },
+];
+
 export default function Sidebar({
   onToggle,
 }: {
   onToggle: (open: boolean) => void;
 }) {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -75,21 +85,18 @@ export default function Sidebar({
       >
         <div className={styles.logo}>Proxlox</div>
         <nav>
-          <Link href="/dashboard">
-            <FiHome /> Dashboard
-          </Link>
-          <Link href="/profile">
-            <FiUser /> My Profile
-          </Link>
-          <Link href="/marketplace">
-            <FiShoppingCart /> Marketplace
-          </Link>
-          <Link href="/community">
-            <FiMessageCircle /> Community
-          </Link>
-          <Link href="/settings">
-            <FiSettings /> Settings
-          </Link>
+          {navLinks.map(({ href, label, icon: Icon }) => {
+            const isActive = router.pathname === href;
+            return (
+              <Link
+                key={href}
+                href={href}
+                style={isActive ? { background: 'var(--nav-active-bg)', color: 'var(--nav-fg)' } : undefined}
+              >
+                <Icon /> {label}
+              </Link>
+            );
+          })}
 
           <button className={styles.themeToggle} onClick={toggleTheme}>
             {theme === 'dark' ? <FiSun /> : <FiMoon />}
