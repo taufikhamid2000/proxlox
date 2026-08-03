@@ -63,24 +63,27 @@
 }
 
 .dark {
-  --background: #0f172a;
+  /* App-side dark theme now shares the marketing pages' vice-city
+     palette (see components/ViceArt.tsx, pages/index.tsx) so the
+     dashboard/sidebar chrome reads as one product, not two skins. */
+  --background: #08060d;
   --foreground: #ffffff;
-  --muted: #101a34;
-  --border: rgba(255, 255, 255, 0.08);
-  --primary: #3b82f6;
+  --muted: #140d1f;
+  --border: rgba(255, 255, 255, 0.1);
+  --primary: #ff3ea5;
   --primary-foreground: #ffffff;
-  --secondary: #1e40af;
-  --accent: #059669;
-  --accent-foreground: #ffffff;
+  --secondary: #ff8a3d;
+  --accent: #2dd4bf;
+  --accent-foreground: #08060d;
   --destructive: #dc2626;
   --destructive-foreground: #ffffff;
-  --ring: #3b82f6;
+  --ring: #ff3ea5;
 
-  --nav-bg: #0b1120;
+  --nav-bg: #08060d;
   --nav-fg: #ffffff;
   --nav-fg-muted: rgba(255, 255, 255, 0.65);
   --nav-border: rgba(255, 255, 255, 0.1);
-  --nav-active-bg: rgba(255, 255, 255, 0.14);
+  --nav-active-bg: rgba(255, 62, 165, 0.16);
   --nav-hover-bg: rgba(255, 255, 255, 0.08);
 
   --bg-color: var(--background);

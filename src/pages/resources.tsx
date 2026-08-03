@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { supabase } from '@/lib/supabase';
 import AppShell from '@/components/AppShell';
 import Footer from '@/components/Footer';
+import Reveal from '@/components/Reveal';
 import styles from '@/styles/Profile.module.css'; // Now using shared CSS
 
 export default function Resources() {
@@ -66,26 +67,30 @@ export default function Resources() {
       <div className={styles.pageContainer}>
         <div className={styles.contentContainer}>
           <main className={styles.mainContent}>
-            <h1>Study Resources</h1>
-            <p>Upload and download study materials shared by the community.</p>
+            <Reveal>
+              <h1>Study Resources</h1>
+              <p>Upload and download study materials shared by the community.</p>
 
-            <div className={styles.uploadSection}>
-              <input type="file" onChange={(e) => setSelectedFile(e.target.files?.[0] || null)} />
-              <button onClick={handleFileUpload} disabled={uploading}>
-                {uploading ? 'Uploading...' : 'Upload File'}
-              </button>
-            </div>
+              <div className={styles.uploadSection}>
+                <input type="file" onChange={(e) => setSelectedFile(e.target.files?.[0] || null)} />
+                <button onClick={handleFileUpload} disabled={uploading}>
+                  {uploading ? 'Uploading...' : 'Upload File'}
+                </button>
+              </div>
 
-            <h2>Available Resources</h2>
-            <ul className={styles.fileList}>
-              {files.map((file) => (
-                <li key={file.name} className={styles.fileItem}>
-                  <a href={`${supabase.storage.from('resources').getPublicUrl(`uploads/${file.name}`).data.publicUrl}`} download>
-                    {file.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
+              <h2>Available Resources</h2>
+            </Reveal>
+            <Reveal delay={100}>
+              <ul className={styles.fileList}>
+                {files.map((file) => (
+                  <li key={file.name} className={styles.fileItem}>
+                    <a href={`${supabase.storage.from('resources').getPublicUrl(`uploads/${file.name}`).data.publicUrl}`} download>
+                      {file.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
           </main>
           <div className={styles.footerContainer}>
             <Footer />

@@ -10,8 +10,6 @@ import {
   FiMessageCircle,
   FiBook,
   FiSettings,
-  FiSun,
-  FiMoon,
 } from 'react-icons/fi';
 import { signOut } from '@/lib/auth';
 
@@ -24,24 +22,13 @@ const navLinks = [
   { href: '/settings', label: 'Settings', icon: FiSettings },
 ];
 
-// Single app shell: a sticky 56px header (brand + hamburger left, theme +
-// sign-out right) with the sidebar docked directly below it — a static
-// column from lg up, a slide-in drawer opened from the hamburger below
-// that. Mirrors duitduit's app-shell layout instead of a full-height
-// sidebar floating independently of the header.
+// Single app shell in the same vice-city chrome as the marketing header:
+// a sticky 56px header (gradient wordmark + hamburger left, sign-out
+// right) with the sidebar docked directly below it — a static column
+// from lg up, a slide-in drawer opened from the hamburger below that.
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
-  const [theme, setTheme] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('theme') || 'dark';
-    }
-    return 'dark';
-  });
-
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', theme === 'dark');
-  }, [theme]);
 
   useEffect(() => {
     if (!open) return;
@@ -60,12 +47,6 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     };
   }, [open]);
 
-  const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
-  };
-
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <header className="sticky top-0 z-20 flex h-14 shrink-0 items-center justify-between border-b border-navBorder bg-navBg px-4 backdrop-blur md:px-6">
@@ -79,28 +60,21 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           >
             {open ? <FiX size={20} /> : <FiMenu size={20} />}
           </button>
-          <Link href="/dashboard" className="px-2 text-sm font-semibold text-navFg">
+          <Link
+            href="/dashboard"
+            className="bg-gradient-to-r from-vicePink to-viceOrange bg-clip-text px-2 text-sm font-extrabold uppercase tracking-wide text-transparent"
+          >
             Proxlox
           </Link>
         </div>
 
-        <div className="flex items-center gap-1">
-          <button
-            type="button"
-            onClick={toggleTheme}
-            aria-label="Toggle theme"
-            className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-lg text-navFgMuted transition-colors hover:bg-navHoverBg hover:text-navFg"
-          >
-            {theme === 'dark' ? <FiSun size={18} /> : <FiMoon size={18} />}
-          </button>
-          <button
-            type="button"
-            onClick={() => signOut()}
-            className="cursor-pointer rounded-lg px-3 py-2 text-sm text-navFgMuted transition-colors hover:bg-navHoverBg hover:text-destructive"
-          >
-            Sign Out
-          </button>
-        </div>
+        <button
+          type="button"
+          onClick={() => signOut()}
+          className="cursor-pointer rounded-full px-4 py-2 text-sm font-medium text-navFgMuted transition-colors hover:bg-navHoverBg hover:text-destructive"
+        >
+          Sign Out
+        </button>
       </header>
 
       <div className="flex flex-1 flex-col lg:flex-row">
@@ -145,7 +119,7 @@ function NavLinks({ pathname, onNavigate }: { pathname: string; onNavigate?: () 
             aria-current={isActive ? 'page' : undefined}
             className={
               isActive
-                ? 'flex min-h-11 items-center gap-3 rounded-lg bg-navActiveBg px-3 text-sm font-medium text-navFg'
+                ? 'flex min-h-11 items-center gap-3 rounded-lg bg-gradient-to-r from-vicePink/20 to-viceOrange/10 px-3 text-sm font-medium text-white shadow-[0_0_16px_rgba(255,62,165,0.15)]'
                 : 'flex min-h-11 items-center gap-3 rounded-lg px-3 text-sm text-navFgMuted transition-colors hover:bg-navHoverBg hover:text-navFg'
             }
           >

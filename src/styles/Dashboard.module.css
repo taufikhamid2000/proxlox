@@ -1,7 +1,9 @@
 .dashboardContainer {
   width: 100%;
   min-height: 100%;
-  background-color: var(--background);
+  background:
+    radial-gradient(60% 40% at 50% 0%, rgba(255, 138, 61, 0.1) 0%, rgba(255, 62, 165, 0.06) 40%, transparent 70%),
+    var(--background);
   color: var(--foreground);
   display: flex;
   justify-content: center;
@@ -38,12 +40,13 @@
   border-radius: 12px;
   text-align: center;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out, border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
 .card:hover {
   transform: translateY(-2px);
   border-color: var(--primary);
+  box-shadow: 0 0 24px rgba(255, 62, 165, 0.18);
 }
 
 .activity {

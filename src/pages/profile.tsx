@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { supabase } from '@/lib/supabase';
 import AppShell from '@/components/AppShell';
 import Footer from '@/components/Footer';
+import Reveal from '@/components/Reveal';
 import styles from '@/styles/Profile.module.css';
 
 export default function Profile() {
@@ -33,22 +34,24 @@ export default function Profile() {
       <div className={styles.pageContainer}>
         <div className={styles.contentContainer}>
           <main className={styles.mainContent}>
-            <h1>My Profile</h1>
-            <div className={styles.userInfo}>
-              <p>
-                <strong>Email: </strong> {user?.email}
-              </p>
-              <p>
-                <strong>Username: </strong>{' '}
-                {user?.user_metadata?.username || 'Not set'}
-              </p>
-            </div>
-            <button
-              onClick={() => router.push('/settings')}
-              className={styles.actionButton}
-            >
-              Edit Profile
-            </button>
+            <Reveal>
+              <h1>My Profile</h1>
+              <div className={styles.userInfo}>
+                <p>
+                  <strong>Email: </strong> {user?.email}
+                </p>
+                <p>
+                  <strong>Username: </strong>{' '}
+                  {user?.user_metadata?.username || 'Not set'}
+                </p>
+              </div>
+              <button
+                onClick={() => router.push('/settings')}
+                className={styles.actionButton}
+              >
+                Edit Profile
+              </button>
+            </Reveal>
           </main>
           <div className={styles.footerContainer}>
             <Footer />

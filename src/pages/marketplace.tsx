@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { supabase } from '@/lib/supabase';
 import AppShell from '@/components/AppShell';
 import Footer from '@/components/Footer';
+import Reveal from '@/components/Reveal';
 import styles from '@/styles/Profile.module.css'; // Using shared CSS
 
 export default function Marketplace() {
@@ -44,8 +45,10 @@ export default function Marketplace() {
       <div className={styles.pageContainer}>
         <div className={styles.contentContainer}>
           <main className={styles.mainContent}>
-            <h1>Marketplace</h1>
-            <p>Buy and sell items with the student community.</p>
+            <Reveal>
+              <h1>Marketplace</h1>
+              <p>Buy and sell items with the student community.</p>
+            </Reveal>
 
             {loading ? (
               <p>Loading products...</p>
@@ -53,15 +56,15 @@ export default function Marketplace() {
               <p>No products available yet.</p>
             ) : (
               <div className={styles.marketplaceGrid}>
-                {products.map((product) => (
-                  <div key={product.id} className={styles.productCard}>
+                {products.map((product, i) => (
+                  <Reveal key={product.id} delay={i * 60} className={styles.productCard}>
                     <img src={product.image_url} alt={product.name} className={styles.productImage} />
                     <h3>{product.name}</h3>
                     <p className={styles.productPrice}>${product.price}</p>
                     <button className={styles.actionButton} onClick={() => router.push(`/marketplace/${product.id}`)}>
                       View Details
                     </button>
-                  </div>
+                  </Reveal>
                 ))}
               </div>
             )}

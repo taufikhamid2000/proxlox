@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { supabase } from '@/lib/supabase';
 import AppShell from '@/components/AppShell';
+import Reveal from '@/components/Reveal';
 import { User } from '@supabase/supabase-js';
 import styles from '@/styles/Dashboard.module.css';
 
@@ -30,39 +31,45 @@ export default function Dashboard() {
     <AppShell>
       <div className={styles.dashboardContainer}>
         <div className={styles.dashboardContent}>
-          <section className={styles.userOverview}>
-            <h2>Welcome, {user?.email || 'User'}!</h2>
-            <p>Your last login: {formattedDate || 'Loading...'}</p>
-          </section>
+          <Reveal>
+            <section className={styles.userOverview}>
+              <h2>Welcome, {user?.email || 'User'}!</h2>
+              <p>Your last login: {formattedDate || 'Loading...'}</p>
+            </section>
+          </Reveal>
 
           <section className={styles.quickActions}>
-            <div className={styles.card}>
+            <Reveal delay={0} className={styles.card}>
               <h3>🛒 Marketplace</h3>
               <p>Browse and purchase limited-edition items.</p>
-            </div>
-            <div className={styles.card}>
+            </Reveal>
+            <Reveal delay={80} className={styles.card}>
               <h3>🛍️ Personal Shopper</h3>
               <p>Request a personal shopper to buy exclusive products.</p>
-            </div>
-            <div className={styles.card}>
+            </Reveal>
+            <Reveal delay={160} className={styles.card}>
               <h3>💬 Community</h3>
               <p>Join discussions, connect with others, and stay updated.</p>
-            </div>
+            </Reveal>
           </section>
 
-          <section className={styles.activity}>
-            <h2>Recent Activity</h2>
-            <ul>
-              <li>🛍️ Purchased a limited-edition sneaker</li>
-              <li>📩 Submitted a personal shopper request</li>
-              <li>💬 Joined the exclusive drops discussion</li>
-            </ul>
-          </section>
+          <Reveal>
+            <section className={styles.activity}>
+              <h2>Recent Activity</h2>
+              <ul>
+                <li>🛍️ Purchased a limited-edition sneaker</li>
+                <li>📩 Submitted a personal shopper request</li>
+                <li>💬 Joined the exclusive drops discussion</li>
+              </ul>
+            </section>
+          </Reveal>
 
-          <section className={styles.announcements}>
-            <h2>📢 Announcements</h2>
-            <p>New rare drops are coming soon. Stay tuned!</p>
-          </section>
+          <Reveal>
+            <section className={styles.announcements}>
+              <h2>📢 Announcements</h2>
+              <p>New rare drops are coming soon. Stay tuned!</p>
+            </section>
+          </Reveal>
         </div>
       </div>
     </AppShell>
