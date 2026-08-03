@@ -10,6 +10,8 @@ import {
   FiMessageCircle,
   FiBook,
   FiSettings,
+  FiSun,
+  FiMoon,
 } from 'react-icons/fi';
 import { signOut } from '@/lib/auth';
 
@@ -29,6 +31,22 @@ const navLinks = [
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('theme') || 'dark';
+    }
+    return 'dark';
+  });
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+  }, [theme]);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+  };
 
   useEffect(() => {
     if (!open) return;
@@ -68,13 +86,23 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           </Link>
         </div>
 
-        <button
-          type="button"
-          onClick={() => signOut()}
-          className="cursor-pointer rounded-full px-4 py-2 text-sm font-medium text-navFgMuted transition-colors hover:bg-navHoverBg hover:text-destructive"
-        >
-          Sign Out
-        </button>
+        <div className="flex items-center gap-1">
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-lg text-navFgMuted transition-colors hover:bg-navHoverBg hover:text-navFg"
+          >
+            {theme === 'dark' ? <FiSun size={18} /> : <FiMoon size={18} />}
+          </button>
+          <button
+            type="button"
+            onClick={() => signOut()}
+            className="cursor-pointer rounded-full px-4 py-2 text-sm font-medium text-navFgMuted transition-colors hover:bg-navHoverBg hover:text-destructive"
+          >
+            Sign Out
+          </button>
+        </div>
       </header>
 
       <div className="flex flex-1 flex-col lg:flex-row">
