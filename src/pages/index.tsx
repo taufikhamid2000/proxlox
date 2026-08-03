@@ -54,7 +54,7 @@ export default function Home() {
             radial sunset glow, huge gradient-clipped stacked wordmark,
             faint scanline texture for a retro-CRT edge. */}
         <section
-          className="relative flex min-h-[92vh] flex-col items-center justify-center overflow-hidden px-6 text-center"
+          className="relative flex min-h-[85vh] flex-col items-center justify-center overflow-hidden px-6 py-20 text-center sm:min-h-[92vh] sm:py-0"
           style={{
             background:
               'radial-gradient(120% 90% at 50% 110%, #ff8a3d33 0%, #ff3ea52e 30%, #7c3aed26 55%, #08060d 80%), #08060d',
@@ -74,14 +74,14 @@ export default function Home() {
           <div
             ref={sunRef}
             aria-hidden="true"
-            className="pointer-events-none absolute left-1/2 top-[8%] w-[70vw] max-w-[520px] -translate-x-1/2 opacity-70"
+            className="pointer-events-none absolute left-1/2 top-[4%] w-[55vw] max-w-[380px] -translate-x-1/2 opacity-50 sm:top-[8%] sm:w-[70vw] sm:max-w-[520px] sm:opacity-70"
           >
             <SunHorizon className="w-full" />
           </div>
           <div
             ref={skylineRef}
             aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-[22vh] text-black/70"
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-[12vh] text-black/70 sm:h-[22vh]"
           >
             <Skyline className="h-full w-full" />
           </div>
@@ -104,7 +104,7 @@ export default function Home() {
             Proxlox
           </p>
 
-          <h1 className="relative z-10 font-sans text-[13vw] font-black uppercase leading-[0.9] tracking-tight sm:text-[9vw] lg:text-[7vw]">
+          <h1 className="relative z-10 font-sans text-[clamp(2.25rem,11vw,3.75rem)] font-black uppercase leading-[0.95] tracking-tight sm:text-[9vw] sm:leading-[0.9] lg:text-[7vw]">
             <span className="block bg-gradient-to-r from-vicePink via-viceOrange to-vicePink bg-clip-text text-transparent">
               Skip the Lines.
             </span>
@@ -118,16 +118,16 @@ export default function Home() {
             drops — no queues, no bots, no FOMO.
           </p>
 
-          <div className="relative z-10 mt-10 flex flex-wrap items-center justify-center gap-4">
+          <div className="relative z-10 mt-8 flex w-full max-w-sm flex-col items-stretch gap-3 sm:mt-10 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-4">
             <Link
               href="/browse"
-              className="rounded-full bg-gradient-to-r from-vicePink to-viceOrange px-8 py-3 text-sm font-semibold uppercase tracking-wide text-white shadow-[0_0_30px_rgba(255,62,165,0.35)] transition-transform hover:scale-105"
+              className="rounded-full bg-gradient-to-r from-vicePink to-viceOrange px-8 py-3.5 text-sm font-semibold uppercase tracking-wide text-white shadow-[0_0_30px_rgba(255,62,165,0.35)] transition-transform hover:scale-105 sm:py-3"
             >
               Browse Available Items
             </Link>
             <Link
               href="/personal-shopper"
-              className="rounded-full border border-white/25 px-8 py-3 text-sm font-semibold uppercase tracking-wide text-white/85 transition-colors hover:border-viceTeal hover:text-viceTeal"
+              className="rounded-full border border-white/25 px-8 py-3.5 text-sm font-semibold uppercase tracking-wide text-white/85 transition-colors hover:border-viceTeal hover:text-viceTeal sm:py-3"
             >
               Request Personal Shopper
             </Link>
@@ -135,7 +135,7 @@ export default function Home() {
         </section>
 
         {/* How It Works */}
-        <section className="bg-viceInk px-6 py-24">
+        <section className="bg-viceInk px-6 py-16 sm:py-24">
           <Reveal>
             <h2 className="mb-12 text-center text-3xl font-bold uppercase tracking-wide text-white">
               How It Works
@@ -173,7 +173,7 @@ export default function Home() {
         </section>
 
         {/* Explore Proxlox */}
-        <section className="bg-black/40 px-6 py-24">
+        <section className="bg-black/40 px-6 py-16 sm:py-24">
           <Reveal>
             <h2 className="mb-12 text-center text-3xl font-bold uppercase tracking-wide text-white">
               Explore Proxlox
@@ -199,7 +199,7 @@ export default function Home() {
         </section>
 
         {/* Testimonials */}
-        <section className="bg-viceInk px-6 py-24 text-center">
+        <section className="bg-viceInk px-6 py-16 sm:py-24 text-center">
           <Reveal>
             <h2 className="mb-10 text-3xl font-bold uppercase tracking-wide text-white">
               What Buyers Say
@@ -218,7 +218,7 @@ export default function Home() {
 
         {/* Call to Action */}
         <section
-          className="relative overflow-hidden px-6 py-24 text-center"
+          className="relative overflow-hidden px-6 py-16 sm:py-24 text-center"
           style={{
             background:
               'radial-gradient(80% 120% at 50% 0%, #7c3aed33 0%, #ff3ea52e 45%, #08060d 80%), #08060d',
