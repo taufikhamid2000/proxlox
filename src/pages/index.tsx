@@ -39,106 +39,157 @@ export default function Home() {
         />
       </Head>
 
-      <div>
+      <div className="bg-viceInk">
         <Header />
 
-        {/* Hero Section */}
-        <section className="heroSection">
-          <h1>Skip the Lines, Secure Your Limited Drops</h1>
-          <p>
-            Get exclusive items without the hassle. Proxlox connects buyers with
-            trusted resellers for limited-edition drops.
+        {/* Hero — GTA VI teaser-page inspired: near-black dusk backdrop,
+            radial sunset glow, huge gradient-clipped stacked wordmark,
+            faint scanline texture for a retro-CRT edge. */}
+        <section
+          className="relative flex min-h-[92vh] flex-col items-center justify-center overflow-hidden px-6 text-center"
+          style={{
+            background:
+              'radial-gradient(120% 90% at 50% 110%, #ff8a3d33 0%, #ff3ea52e 30%, #7c3aed26 55%, #08060d 80%), #08060d',
+          }}
+        >
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 opacity-[0.06]"
+            style={{
+              backgroundImage:
+                'repeating-linear-gradient(0deg, #fff 0px, #fff 1px, transparent 1px, transparent 3px)',
+            }}
+          />
+
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.4em] text-viceTeal">
+            Proxlox
           </p>
-          <div>
-            <Link href="/browse">
-              <button>Browse Available Items</button>
-            </Link>
-            <Link href="/personal-shopper">
-              <button style={{ marginLeft: '10px' }}>
-                Request Personal Shopper
-              </button>
-            </Link>
-          </div>
-        </section>
 
-        {/* How It Works Section */}
-        <section className="featuresSection">
-          <h2>How It Works</h2>
-          <div className="features">
-            <div className="feature">
-              <h3>1. Browse Limited Items</h3>
-              <p>
-                Find exclusive items already secured by resellers at a fair,
-                transparent markup.
-              </p>
-            </div>
-            <div className="feature">
-              <h3>2. Personal Shopper Service</h3>
-              <p>
-                Need something specific? Hire a personal shopper to purchase it
-                for you.
-              </p>
-            </div>
-            <div className="feature">
-              <h3>3. Secure Payments</h3>
-              <p>
-                Choose from multiple payment options with buyer protection in
-                place.
-              </p>
-            </div>
-          </div>
-        </section>
+          <h1 className="font-sans text-[13vw] font-black uppercase leading-[0.9] tracking-tight sm:text-[9vw] lg:text-[7vw]">
+            <span className="block bg-gradient-to-r from-vicePink via-viceOrange to-vicePink bg-clip-text text-transparent">
+              Skip the Lines.
+            </span>
+            <span className="block bg-gradient-to-r from-viceOrange via-vicePink to-vicePurple bg-clip-text text-transparent">
+              Secure the Drop.
+            </span>
+          </h1>
 
-        {/* Quick Links Section */}
-        {/* Features Section */}
-        <section className="featuresSection">
-          <h2>Explore Proxlox</h2>
-          <div className="features">
-            <div className="feature">
-              <h3>
-                <Link href="/about">About Us</Link>
-              </h3>
-              <p>Learn what Proxlox is all about and how we operate.</p>
-            </div>
-            <div className="feature">
-              <h3>
-                <Link href="/privacy">Privacy Policy</Link>
-              </h3>
-              <p>See how we handle your data and keep things secure.</p>
-            </div>
-            <div className="feature">
-              <h3>
-                <Link href="/terms">Terms & Conditions</Link>
-              </h3>
-              <p>Understand the rules and guidelines of using our platform.</p>
-            </div>
-            <div className="feature">
-              <h3>
-                <Link href="/contact">Contact Us</Link>
-              </h3>
-              <p>Have questions? Reach out to us anytime.</p>
-            </div>
-          </div>
-        </section>
-
-        {/* Testimonials Section */}
-        <section className="testimonialsSection">
-          <h2>What Buyers Say</h2>
-          <p>
-            "Proxlox helped me get my hands on a limited-edition drop without
-            wasting hours in line!" - Adam
+          <p className="relative z-10 mx-auto mt-6 max-w-xl text-base text-white/70 sm:text-lg">
+            Proxlox connects buyers with trusted resellers for limited-edition
+            drops — no queues, no bots, no FOMO.
           </p>
-          <p>"I love the personal shopper option. No more FOMO!" - Sarah</p>
+
+          <div className="relative z-10 mt-10 flex flex-wrap items-center justify-center gap-4">
+            <Link
+              href="/browse"
+              className="rounded-full bg-gradient-to-r from-vicePink to-viceOrange px-8 py-3 text-sm font-semibold uppercase tracking-wide text-white shadow-[0_0_30px_rgba(255,62,165,0.35)] transition-transform hover:scale-105"
+            >
+              Browse Available Items
+            </Link>
+            <Link
+              href="/personal-shopper"
+              className="rounded-full border border-white/25 px-8 py-3 text-sm font-semibold uppercase tracking-wide text-white/85 transition-colors hover:border-viceTeal hover:text-viceTeal"
+            >
+              Request Personal Shopper
+            </Link>
+          </div>
         </section>
 
-        {/* Call-to-Action Section */}
-        <section className="ctaSection">
-          <h2>Start Shopping Today</h2>
-          <p>
+        {/* How It Works */}
+        <section className="bg-viceInk px-6 py-24">
+          <h2 className="mb-12 text-center text-3xl font-bold uppercase tracking-wide text-white">
+            How It Works
+          </h2>
+          <div className="mx-auto grid max-w-5xl gap-6 sm:grid-cols-3">
+            {[
+              {
+                n: '1',
+                title: 'Browse Limited Items',
+                body: 'Find exclusive items already secured by resellers at a fair, transparent markup.',
+              },
+              {
+                n: '2',
+                title: 'Personal Shopper Service',
+                body: 'Need something specific? Hire a personal shopper to purchase it for you.',
+              },
+              {
+                n: '3',
+                title: 'Secure Payments',
+                body: 'Choose from multiple payment options with buyer protection in place.',
+              },
+            ].map((step) => (
+              <div
+                key={step.n}
+                className="rounded-xl border border-white/10 bg-white/[0.03] p-6 transition-colors hover:border-vicePink/60"
+              >
+                <span className="bg-gradient-to-r from-vicePink to-viceOrange bg-clip-text text-3xl font-black text-transparent">
+                  {step.n}
+                </span>
+                <h3 className="mt-3 text-lg font-semibold text-white">{step.title}</h3>
+                <p className="mt-2 text-sm text-white/60">{step.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Explore Proxlox */}
+        <section className="bg-black/40 px-6 py-24">
+          <h2 className="mb-12 text-center text-3xl font-bold uppercase tracking-wide text-white">
+            Explore Proxlox
+          </h2>
+          <div className="mx-auto grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { href: '/about', title: 'About Us', body: 'Learn what Proxlox is all about and how we operate.' },
+              { href: '/privacy', title: 'Privacy Policy', body: 'See how we handle your data and keep things secure.' },
+              { href: '/terms', title: 'Terms & Conditions', body: 'Understand the rules and guidelines of using our platform.' },
+              { href: '/contact', title: 'Contact Us', body: 'Have questions? Reach out to us anytime.' },
+            ].map((link) => (
+              <div
+                key={link.href}
+                className="rounded-xl border border-white/10 bg-white/[0.03] p-6 transition-colors hover:border-viceTeal/60"
+              >
+                <Link href={link.href} className="text-lg font-semibold text-viceTeal hover:text-white">
+                  {link.title}
+                </Link>
+                <p className="mt-2 text-sm text-white/60">{link.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Testimonials */}
+        <section className="bg-viceInk px-6 py-24 text-center">
+          <h2 className="mb-10 text-3xl font-bold uppercase tracking-wide text-white">
+            What Buyers Say
+          </h2>
+          <div className="mx-auto flex max-w-3xl flex-col gap-6 text-lg italic text-white/70 sm:flex-row sm:gap-10">
+            <p className="flex-1">
+              "Proxlox helped me get my hands on a limited-edition drop without
+              wasting hours in line!" — Adam
+            </p>
+            <p className="flex-1">"I love the personal shopper option. No more FOMO!" — Sarah</p>
+          </div>
+        </section>
+
+        {/* Call to Action */}
+        <section
+          className="relative overflow-hidden px-6 py-24 text-center"
+          style={{
+            background:
+              'radial-gradient(80% 120% at 50% 0%, #7c3aed33 0%, #ff3ea52e 45%, #08060d 80%), #08060d',
+          }}
+        >
+          <h2 className="text-3xl font-black uppercase tracking-wide text-white sm:text-4xl">
+            Start Shopping Today
+          </h2>
+          <p className="mx-auto mt-4 max-w-md text-white/70">
             Get access to exclusive products, secured and delivered hassle-free.
           </p>
-          <Link href="/browse">
-            <button>Browse Now</button>
+          <Link
+            href="/browse"
+            className="mt-8 inline-block rounded-full bg-gradient-to-r from-vicePink to-viceOrange px-10 py-3 text-sm font-semibold uppercase tracking-wide text-white shadow-[0_0_30px_rgba(255,62,165,0.35)] transition-transform hover:scale-105"
+          >
+            Browse Now
           </Link>
         </section>
 

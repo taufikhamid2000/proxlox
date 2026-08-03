@@ -28,6 +28,14 @@ const config: Config = {
         navBorder: 'var(--nav-border)',
         navActiveBg: 'var(--nav-active-bg)',
         navHoverBg: 'var(--nav-hover-bg)',
+        // Vice-city sunset accents, used only for the marketing hero (GTA VI
+        // teaser-page inspired: hot pink -> orange gradient wordmark on a
+        // near-black dusk backdrop).
+        viceInk: '#08060d',
+        vicePink: '#ff3ea5',
+        viceOrange: '#ff8a3d',
+        vicePurple: '#7c3aed',
+        viceTeal: '#2dd4bf',
       },
       fontFamily: {
         sans: ['"Fira Sans"', 'Arial', 'Helvetica', 'sans-serif'],
