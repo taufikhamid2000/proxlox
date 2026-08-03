@@ -3,24 +3,28 @@
 
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Reveal from '@/components/Reveal';
 import styles from '@/styles/Shared.module.css';
 import Link from 'next/link';
 
 export default function Terms() {
   return (
-    <div>
+    <div className="bg-viceInk">
       <Header />
 
       {/* Introduction */}
-      <section className={styles.introSection}>
-        <h1>Terms and Conditions (Yep, You Gotta Read These)</h1>
-        <p>
-          Welcome to Proxlox! By using our platform, you agree to these terms. 
-          If you don’t like them, no hard feelings—just don’t use the site.
-        </p>
-      </section>
+      <Reveal>
+        <section className={styles.introSection}>
+          <h1>Terms and Conditions (Yep, You Gotta Read These)</h1>
+          <p>
+            Welcome to Proxlox! By using our platform, you agree to these terms.
+            If you don’t like them, no hard feelings—just don’t use the site.
+          </p>
+        </section>
+      </Reveal>
 
       {/* Q&A */}
+      <Reveal>
       <section className={styles.qaSection}>
         <div className={styles.question}>
           <h2>1. Use Proxlox Responsibly</h2>
@@ -94,17 +98,20 @@ export default function Terms() {
           </p>
         </div>
       </section>
+      </Reveal>
 
       {/* CTA */}
-      <section className={styles.ctaSection}>
-        <h2>Questions? Concerns?</h2>
-        <p>
-          Something unclear? Let us know. We actually read messages.
-        </p>
-        <Link href="/contact" passHref>
-          <button className="btn">Contact Us</button>
-        </Link>
-      </section>
+      <Reveal>
+        <section className={styles.ctaSection}>
+          <h2>Questions? Concerns?</h2>
+          <p>
+            Something unclear? Let us know. We actually read messages.
+          </p>
+          <Link href="/contact" passHref>
+            <button className="btn">Contact Us</button>
+          </Link>
+        </section>
+      </Reveal>
 
       <Footer />
     </div>

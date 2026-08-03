@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Reveal from '@/components/Reveal';
 import sharedStyles from '@/styles/Shared.module.css';
 
 export default function Contact() {
@@ -23,20 +24,23 @@ export default function Contact() {
   };
 
   return (
-    <div>
+    <div className="bg-viceInk">
       <Header />
 
       {/* Introduction (Reusing Shared Styles) */}
-      <section className={sharedStyles.introSection}>
-        <h1>Contact Us</h1>
-        <p>
-          Got questions, feedback, or just want to say hi? We'd love to hear
-          from you. Oh, and by "we," I mean me and ChatGPT. That’s the whole
-          team. We’re a bit shy, but we’ll reply. Probably.
-        </p>
-      </section>
+      <Reveal>
+        <section className={sharedStyles.introSection}>
+          <h1>Contact Us</h1>
+          <p>
+            Got questions, feedback, or just want to say hi? We'd love to hear
+            from you. Oh, and by "we," I mean me and ChatGPT. That’s the whole
+            team. We’re a bit shy, but we’ll reply. Probably.
+          </p>
+        </section>
+      </Reveal>
 
       {/* Contact Form */}
+      <Reveal delay={100}>
       <section className={sharedStyles.contactSection}>
         <form className={sharedStyles.contactForm} onSubmit={handleSubmit}>
           <label htmlFor="name">Name</label>
@@ -74,36 +78,39 @@ export default function Contact() {
           <button type="submit">Send Message</button>
         </form>
       </section>
+      </Reveal>
 
       {/* Call-to-Action */}
-      <section className={sharedStyles.ctaSection}>
-        <h2>Not Ready to Message?</h2>
-        <p>
-          No worries. Just shout into the void and maybe we’ll hear it. Or, you
-          know, come back later when you’re ready to type something.
-        </p>
+      <Reveal>
+        <section className={sharedStyles.ctaSection}>
+          <h2>Not Ready to Message?</h2>
+          <p>
+            No worries. Just shout into the void and maybe we’ll hear it. Or, you
+            know, come back later when you’re ready to type something.
+          </p>
 
-        {/* Optional: Add Social Media Links */}
-        <p>
-          Meanwhile, you can find us on:
-          <br />
-          <a
-            href="https://twitter.com/yourhandle"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Twitter
-          </a>{' '}
-          |{' '}
-          <a
-            href="https://instagram.com/yourhandle"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Instagram
-          </a>
-        </p>
-      </section>
+          {/* Optional: Add Social Media Links */}
+          <p>
+            Meanwhile, you can find us on:
+            <br />
+            <a
+              href="https://twitter.com/yourhandle"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Twitter
+            </a>{' '}
+            |{' '}
+            <a
+              href="https://instagram.com/yourhandle"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Instagram
+            </a>
+          </p>
+        </section>
+      </Reveal>
 
       <Footer />
     </div>

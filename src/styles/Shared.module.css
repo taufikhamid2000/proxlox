@@ -1,65 +1,75 @@
-/* Shared Page Styling */
+/* Shared Page Styling — vice-city theme, matching index/header/footer. */
 
 /* Introduction Section */
 .introSection {
-  padding: 3rem 1rem;
+  padding: 5rem 1.5rem 3rem;
   text-align: center;
-  background-color: var(--fg-color);
-  color: var(--text-secondary);
+  background:
+    radial-gradient(70% 50% at 50% 0%, rgba(255, 138, 61, 0.14) 0%, rgba(255, 62, 165, 0.08) 40%, transparent 75%),
+    #08060d;
+  color: #ffffff;
 }
 
 .introSection h1 {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--text-accent);
+  font-size: 2.25rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
   margin-bottom: 1rem;
+  background: linear-gradient(90deg, #ff3ea5, #ff8a3d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .introSection p {
   max-width: 40rem;
   margin: 0 auto;
   font-size: 1.125rem;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.65);
 }
 
 /* Q&A Section */
 .qaSection {
   width: 100%;
-  padding: 3rem 6rem 1rem 6rem;
-  background-color: var(--fg-color);
-  color: var(--text-secondary);
-}
-
-@media (max-width: 768px) {
-  .qaSection {
-    padding: 2rem 1rem;
-  }
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem;
+  background-color: #08060d;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .qaSection .question {
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .qaSection .question h2 {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  color: var(--text-accent);
+  color: #ffffff;
 }
 
 .qaSection .answer {
   margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.qaSection .answer:last-child {
+  border-bottom: none;
 }
 
 .qaSection .answer p {
-  font-size: 1.125rem;
-  color: var(--text-secondary);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.65);
 }
 
 /* Contact Form Section */
 .contactSection {
-  padding: 3rem 1rem;
-  background-color: var(--fg-color);
-  color: var(--text-secondary);
+  padding: 3rem 1.5rem 4rem;
+  background-color: #08060d;
+  color: rgba(255, 255, 255, 0.7);
   text-align: center;
 }
 
@@ -71,22 +81,20 @@
   align-items: center;
 }
 
-/* Input Field */
 .passwordContainer input {
   flex: 1;
-  padding-right: 2.5rem; 
+  padding-right: 2.5rem;
 }
 
-/* Toggle Button */
 .passwordToggle {
   position: absolute;
   right: 10px;
-  top: 10%;
-  transform: translateY(1%);
+  top: 50%;
+  transform: translateY(-50%);
   background: none;
   border: none;
   cursor: pointer;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.5);
   padding: 5px;
   display: flex;
   align-items: center;
@@ -94,27 +102,38 @@
 }
 
 .contactForm {
-  max-width: 40rem;
+  max-width: 32rem;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.25rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 2rem;
 }
 
 .contactForm label {
-  font-size: 1rem;
-  color: var(--text-accent);
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
   text-align: left;
 }
 
 .contactForm input,
 .contactForm textarea {
   width: auto;
-  padding: 0.75rem;
-  border: 1px solid var(--text-accent);
-  border-radius: 0.375rem;
-  background-color: var(--bg-color);
-  color: var(--fg-color);
+  padding: 0.65rem 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+  transition: border-color 0.2s;
+}
+
+.contactForm input:focus,
+.contactForm textarea:focus {
+  outline: none;
+  border-color: #ff3ea5;
 }
 
 .contactForm textarea {
@@ -123,53 +142,70 @@
 }
 
 .contactForm button {
-  background-color: var(--button-bg);
-  color: var(--both);
+  background: linear-gradient(90deg, #ff3ea5, #ff8a3d);
+  color: #ffffff;
   padding: 0.75rem 1.5rem;
-  border-radius: 0.375rem;
-  transition:
-    transform 0.3s,
-    background-color 0.3s;
+  border-radius: 999px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: 0.9rem;
+  box-shadow: 0 0 24px rgba(255, 62, 165, 0.3);
+  transition: transform 0.2s;
 }
 
 .contactForm button:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 /* Call-to-Action Section */
 .ctaSection {
-  padding: 3rem 1rem;
+  position: relative;
+  overflow: hidden;
+  padding: 4rem 1.5rem;
   text-align: center;
-  background-color: var(--fg-color);
-  color: var(--text-secondary);
+  background:
+    radial-gradient(60% 100% at 50% 0%, rgba(124, 58, 237, 0.16) 0%, rgba(255, 62, 165, 0.08) 45%, transparent 80%),
+    #08060d;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .ctaSection h2 {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--text-accent);
+  font-size: 1.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #ffffff;
   margin-bottom: 1rem;
 }
 
 .ctaSection p {
   max-width: 40rem;
   margin: 0 auto;
-  font-size: 1.125rem;
-  color: var(--text-secondary);
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.6);
 }
 
-.ctaSection button {
+.ctaSection a {
+  color: #2dd4bf;
+}
+
+.ctaSection button,
+.ctaSection .btn {
   margin-top: 1.5rem;
-  background-color: var(--button-bg);
-  color: var(--both);
-  padding: 0.5rem 1.5rem;
-  border-radius: 0.375rem;
-  transition:
-    transform 0.3s,
-    background-color 0.3s;
+  background: linear-gradient(90deg, #ff3ea5, #ff8a3d);
+  color: #ffffff;
+  padding: 0.65rem 1.75rem;
+  border-radius: 999px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: 0.85rem;
+  box-shadow: 0 0 24px rgba(255, 62, 165, 0.3);
+  transition: transform 0.2s;
 }
 
-.ctaSection button:hover {
-  background-color: var(--button-hover);
+.ctaSection button:hover,
+.ctaSection .btn:hover {
   transform: scale(1.05);
+  background: linear-gradient(90deg, #ff3ea5, #ff8a3d);
 }

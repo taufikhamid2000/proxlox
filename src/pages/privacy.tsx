@@ -1,23 +1,27 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Reveal from '@/components/Reveal';
 import styles from '@/styles/Shared.module.css';
 import Link from 'next/link';
 
 export default function Privacy() {
   return (
-    <div>
+    <div className="bg-viceInk">
       <Header />
 
       {/* Introduction */}
-      <section className={styles.introSection}>
-        <h1>Privacy Policy (Because You Deserve to Know)</h1>
-        <p>
-          Let’s be real: nobody actually reads these, but if you’re here, you
-          probably care. So, here’s the deal—no nonsense, no legal jargon.
-        </p>
-      </section>
+      <Reveal>
+        <section className={styles.introSection}>
+          <h1>Privacy Policy (Because You Deserve to Know)</h1>
+          <p>
+            Let’s be real: nobody actually reads these, but if you’re here, you
+            probably care. So, here’s the deal—no nonsense, no legal jargon.
+          </p>
+        </section>
+      </Reveal>
 
       {/* Q&A */}
+      <Reveal>
       <section className={styles.qaSection}>
         <div className={styles.question}>
           <h2>What data do you collect?</h2>
@@ -94,18 +98,21 @@ export default function Privacy() {
           </p>
         </div>
       </section>
+      </Reveal>
 
       {/* CTA */}
-      <section className={styles.ctaSection}>
-        <h2>Still Got Questions?</h2>
-        <p>
-          If you’re still worried, reach out. We’ll answer your concerns (or at
-          least pretend to until you feel better).
-        </p>
-        <Link href="/contact" passHref>
-          <button className="btn">Contact Us</button>
-        </Link>
-      </section>
+      <Reveal>
+        <section className={styles.ctaSection}>
+          <h2>Still Got Questions?</h2>
+          <p>
+            If you’re still worried, reach out. We’ll answer your concerns (or at
+            least pretend to until you feel better).
+          </p>
+          <Link href="/contact" passHref>
+            <button className="btn">Contact Us</button>
+          </Link>
+        </section>
+      </Reveal>
 
       <Footer />
     </div>

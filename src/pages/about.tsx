@@ -1,24 +1,28 @@
 /* eslint-disable react/no-unescaped-entities */
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Reveal from '@/components/Reveal';
 import styles from '@/styles/Shared.module.css';
 import Link from 'next/link';
 
 export default function About() {
   return (
-    <div>
+    <div className="bg-viceInk">
       <Header />
 
       {/* Introduction */}
-      <section className={styles.introSection}>
-        <h1>Everything You Need to Know About Proxlox</h1>
-        <p>
-          Resellers, personal shoppers, scalping—yeah, we know the drill. 
-          Let's clear things up before you jump in.
-        </p>
-      </section>
+      <Reveal>
+        <section className={styles.introSection}>
+          <h1>Everything You Need to Know About Proxlox</h1>
+          <p>
+            Resellers, personal shoppers, scalping—yeah, we know the drill.
+            Let's clear things up before you jump in.
+          </p>
+        </section>
+      </Reveal>
 
       {/* Q&A */}
+      <Reveal>
       <section className={styles.qaSection}>
         <div className={styles.question}>
           <h2>What is Proxlox?</h2>
@@ -112,17 +116,20 @@ export default function About() {
           </p>
         </div>
       </section>
+      </Reveal>
 
       {/* CTA */}
-      <section className={styles.ctaSection}>
-        <h2>Still Have Questions?</h2>
-        <p>
-          No problem. Hit us up, and we’ll clarify whatever’s on your mind.
-        </p>
-        <Link href="/contact" passHref>
-          <button>Contact Us</button>
-        </Link>
-      </section>
+      <Reveal>
+        <section className={styles.ctaSection}>
+          <h2>Still Have Questions?</h2>
+          <p>
+            No problem. Hit us up, and we’ll clarify whatever’s on your mind.
+          </p>
+          <Link href="/contact" passHref>
+            <button>Contact Us</button>
+          </Link>
+        </section>
+      </Reveal>
 
       <Footer />
     </div>
