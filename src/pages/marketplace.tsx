@@ -44,8 +44,10 @@ export default function Marketplace() {
     <AppShell>
       <div className={styles.pageContainer}>
         <div className={styles.contentContainer}>
-          <main className={styles.mainContent}>
-            <Reveal>
+          {/* Wide canvas — a browsing task wants more visible options at
+              once, not a 600px form-card width. */}
+          <main className={styles.wideWrap}>
+            <Reveal className={styles.pageHeading}>
               <h1>Marketplace</h1>
               <p>Buy and sell items with the student community.</p>
             </Reveal>

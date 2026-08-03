@@ -1,5 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
@@ -7,12 +5,11 @@ import { supabase } from '@/lib/supabase';
 import AppShell from '@/components/AppShell';
 import Footer from '@/components/Footer';
 import Reveal from '@/components/Reveal';
-import styles from '@/styles/Profile.module.css'; // Now using shared CSS
+import styles from '@/styles/Profile.module.css';
 
 export default function Settings() {
   const [user, setUser] = useState<any>(null);
   const [username, setUsername] = useState('');
-  const [profileImage, setProfileImage] = useState<File | null>(null);
   const [profileImageUrl, setProfileImageUrl] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -52,13 +49,12 @@ export default function Settings() {
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const file = e.target.files[0];
-    setProfileImage(file);
 
     const fileExt = file.name.split('.').pop();
     const fileName = `${user?.id}.${fileExt}`;
     const filePath = `avatars/${fileName}`;
 
-    const { data, error } = await supabase.storage.from('profiles').upload(filePath, file, {
+    const { error } = await supabase.storage.from('profiles').upload(filePath, file, {
       upsert: true,
     });
 
@@ -72,22 +68,34 @@ export default function Settings() {
 
   if (!user) return <p>Loading...</p>;
 
+  const initial = (username || user?.email || '?').charAt(0).toUpperCase();
+
   return (
     <AppShell>
       <div className={styles.pageContainer}>
         <div className={styles.contentContainer}>
-          <main className={styles.mainContent}>
+          <main className={styles.formCard}>
             <Reveal>
               <h1>Edit Profile</h1>
 
-              <div className={styles.profileImageContainer}>
-                {profileImageUrl && <img src={profileImageUrl} alt="Profile" className={styles.profileImage} />}
+              {/* Avatar preview reads as a real avatar, so the effect of
+                  a chosen file is confirmed before saving instead of
+                  submitting blind. */}
+              <div className={styles.avatarPreviewRow}>
+                <div className={styles.avatarPreview}>
+                  {profileImageUrl ? <img src={profileImageUrl} alt="Profile" /> : initial}
+                </div>
                 <input type="file" accept="image/*" onChange={handleFileUpload} />
               </div>
 
-              <div className={styles.formGroup}>
-                <label>Username </label>
-                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+              <div className={styles.field}>
+                <label htmlFor="username">Username</label>
+                <input
+                  id="username"
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
               </div>
 
               <button onClick={handleUpdateProfile} disabled={loading} className={styles.actionButton}>

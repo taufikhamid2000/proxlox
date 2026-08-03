@@ -153,6 +153,276 @@
   color: var(--nav-fg-muted);
 }
 
+/* Wide, left-aligned wrapper for browsing/feed pages (marketplace,
+   community) — a 600px form-card width starves a scanning task of
+   visible options, so these get the dashboard's wider canvas instead. */
+.wideWrap {
+  width: 100%;
+  max-width: 1100px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+@media (min-width: 640px) {
+  .wideWrap {
+    margin: 40px auto;
+    padding: 0 24px;
+  }
+}
+
+.pageHeading {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.pageHeading h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.pageHeading p {
+  margin: 4px 0 0;
+  color: var(--nav-fg-muted);
+}
+
+.sectionTitle {
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 12px;
+}
+
+/* Settings form card — labels sit above their inputs (fastest scan path
+   per form-usability research) instead of the old centered/inline
+   layout, and the avatar preview reads as a real avatar rather than a
+   bare file input. */
+.formCard {
+  width: 100%;
+  max-width: 520px;
+  margin: 24px auto;
+  padding: 24px;
+  background: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  text-align: left;
+}
+
+@media (min-width: 640px) {
+  .formCard {
+    margin: 40px auto;
+    padding: 32px;
+  }
+}
+
+.formCard h1 {
+  margin: 0 0 20px;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.avatarPreviewRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.avatarPreview {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: #ffffff;
+  background: linear-gradient(135deg, #ff3ea5, #ff8a3d);
+}
+
+.avatarPreview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--nav-fg-muted);
+}
+
+.field input[type='text'],
+.field input[type='email'] {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.field input[type='text']:focus,
+.field input[type='email']:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+/* Community composer — an avatar chip anchors "this is you posting"
+   instead of a bare textarea, matching how real social feeds present
+   the compose box. */
+.composer {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.composerAvatar {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: #ffffff;
+  background: linear-gradient(135deg, #ff3ea5, #ff8a3d);
+}
+
+.composerBody {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.composerBody textarea {
+  width: 100%;
+  min-height: 70px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--background);
+  color: var(--foreground);
+  resize: vertical;
+}
+
+.composerBody textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.composerActions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Post feed — identity chip + relative time per post so it reads as a
+   feed, not an anonymous list of strings. */
+.postFeed {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.postCard {
+  display: flex;
+  gap: 12px;
+  background: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.postAvatar {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.8rem;
+  color: #ffffff;
+  background: linear-gradient(135deg, #ff3ea5, #ff8a3d);
+}
+
+.postBody p {
+  margin: 0;
+  font-size: 0.92rem;
+}
+
+.postBody span {
+  font-size: 0.75rem;
+  color: var(--nav-fg-muted);
+}
+
+/* Resources — upload panel + file rows with a type icon so filenames
+   are recognized (extension -> icon) rather than parsed as text. */
+.uploadCard {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  background: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.fileRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 8px;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.fileRow:hover {
+  border-color: var(--primary);
+  box-shadow: 0 0 20px rgba(255, 62, 165, 0.15);
+}
+
+.fileIcon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.fileRow a {
+  color: var(--foreground);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.fileRow a:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
 /* Footer Styling */
 .footerContainer {
   background: var(--background);
@@ -189,29 +459,6 @@
   list-style: none;
   padding: 0;
   margin-top: 20px;
-}
-
-.fileItem {
-  padding: 10px;
-  background: var(--background);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  margin-bottom: 10px;
-  transition: border-color 0.2s ease-in-out;
-}
-
-.fileItem:hover {
-  border-color: var(--primary);
-  box-shadow: 0 0 20px rgba(255, 62, 165, 0.15);
-}
-
-.fileItem a {
-  color: var(--primary);
-  text-decoration: none;
-}
-
-.fileItem a:hover {
-  text-decoration: underline;
 }
 
 /* Buttons (Shared Across Profile/Settings/Resources) */

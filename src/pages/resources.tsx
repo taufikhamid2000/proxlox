@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
@@ -7,6 +6,17 @@ import AppShell from '@/components/AppShell';
 import Footer from '@/components/Footer';
 import Reveal from '@/components/Reveal';
 import styles from '@/styles/Profile.module.css'; // Now using shared CSS
+
+function fileIcon(name: string): string {
+  const ext = name.split('.').pop()?.toLowerCase() || '';
+  if (['pdf'].includes(ext)) return '📄';
+  if (['png', 'jpg', 'jpeg', 'gif', 'webp', 'svg'].includes(ext)) return '🖼️';
+  if (['doc', 'docx'].includes(ext)) return '📝';
+  if (['xls', 'xlsx', 'csv'].includes(ext)) return '📊';
+  if (['zip', 'rar', '7z'].includes(ext)) return '🗜️';
+  if (['mp4', 'mov', 'avi'].includes(ext)) return '🎞️';
+  return '📁';
+}
 
 export default function Resources() {
   const [user, setUser] = useState<any>(null);
@@ -46,7 +56,7 @@ export default function Resources() {
     const fileName = `${user.id}_${Date.now()}.${fileExt}`;
     const filePath = `uploads/${fileName}`;
 
-    const { data, error } = await supabase.storage.from('resources').upload(filePath, selectedFile, {
+    const { error } = await supabase.storage.from('resources').upload(filePath, selectedFile, {
       upsert: true,
     });
 
@@ -66,25 +76,31 @@ export default function Resources() {
     <AppShell>
       <div className={styles.pageContainer}>
         <div className={styles.contentContainer}>
-          <main className={styles.mainContent}>
-            <Reveal>
+          <main className={styles.wideWrap}>
+            <Reveal className={styles.pageHeading}>
               <h1>Study Resources</h1>
               <p>Upload and download study materials shared by the community.</p>
+            </Reveal>
 
-              <div className={styles.uploadSection}>
+            <Reveal>
+              <div className={styles.uploadCard}>
                 <input type="file" onChange={(e) => setSelectedFile(e.target.files?.[0] || null)} />
-                <button onClick={handleFileUpload} disabled={uploading}>
+                <button onClick={handleFileUpload} disabled={uploading} className={styles.actionButton}>
                   {uploading ? 'Uploading...' : 'Upload File'}
                 </button>
               </div>
-
-              <h2>Available Resources</h2>
             </Reveal>
+
+            <h2 className={styles.sectionTitle}>Available Resources</h2>
             <Reveal delay={100}>
               <ul className={styles.fileList}>
                 {files.map((file) => (
-                  <li key={file.name} className={styles.fileItem}>
-                    <a href={`${supabase.storage.from('resources').getPublicUrl(`uploads/${file.name}`).data.publicUrl}`} download>
+                  <li key={file.name} className={styles.fileRow}>
+                    <span className={styles.fileIcon}>{fileIcon(file.name)}</span>
+                    <a
+                      href={`${supabase.storage.from('resources').getPublicUrl(`uploads/${file.name}`).data.publicUrl}`}
+                      download
+                    >
                       {file.name}
                     </a>
                   </li>
