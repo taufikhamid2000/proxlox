@@ -3,14 +3,13 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { supabase } from '@/lib/supabase';
-import Sidebar from '@/components/Sidebar';
+import AppShell from '@/components/AppShell';
 import Footer from '@/components/Footer';
 import styles from '@/styles/Profile.module.css';
 
 export default function Profile() {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
@@ -30,31 +29,32 @@ export default function Profile() {
   if (loading) return <p>Loading profile...</p>;
 
   return (
-    <div className={styles.pageContainer}>
-      <Sidebar onToggle={(open) => setIsSidebarOpen(open)} />
-      <div className={styles.contentContainer}>
-        <main className={styles.mainContent}>
-          <h1>My Profile</h1>
-          <div className={styles.userInfo}>
-            <p>
-              <strong>Email: </strong> {user?.email}
-            </p>
-            <p>
-              <strong>Username: </strong>{' '}
-              {user?.user_metadata?.username || 'Not set'}
-            </p>
+    <AppShell>
+      <div className={styles.pageContainer}>
+        <div className={styles.contentContainer}>
+          <main className={styles.mainContent}>
+            <h1>My Profile</h1>
+            <div className={styles.userInfo}>
+              <p>
+                <strong>Email: </strong> {user?.email}
+              </p>
+              <p>
+                <strong>Username: </strong>{' '}
+                {user?.user_metadata?.username || 'Not set'}
+              </p>
+            </div>
+            <button
+              onClick={() => router.push('/settings')}
+              className={styles.actionButton}
+            >
+              Edit Profile
+            </button>
+          </main>
+          <div className={styles.footerContainer}>
+            <Footer />
           </div>
-          <button
-            onClick={() => router.push('/settings')}
-            className={styles.actionButton}
-          >
-            Edit Profile
-          </button>
-        </main>
-        <div className={styles.footerContainer}>
-          <Footer />
         </div>
       </div>
-    </div>
+    </AppShell>
   );
 }

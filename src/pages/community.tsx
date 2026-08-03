@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { supabase } from '@/lib/supabase';
-import Sidebar from '@/components/Sidebar';
+import AppShell from '@/components/AppShell';
 import Footer from '@/components/Footer';
 import styles from '@/styles/Profile.module.css'; // Using shared CSS
 
@@ -56,48 +56,47 @@ export default function Community() {
   if (!user) return <p>Loading...</p>;
 
   return (
-    <div className={styles.pageContainer}>
-      <Sidebar
-        onToggle={(open: boolean) => console.log('Sidebar toggled:', open)}
-      />
-      <div className={styles.contentContainer}>
-        <main className={styles.mainContent}>
-          <h1>Community Discussions</h1>
-          <p>Join the conversation, ask questions, and share ideas.</p>
+    <AppShell>
+      <div className={styles.pageContainer}>
+        <div className={styles.contentContainer}>
+          <main className={styles.mainContent}>
+            <h1>Community Discussions</h1>
+            <p>Join the conversation, ask questions, and share ideas.</p>
 
-          <div className={styles.postInput}>
-            <textarea
-              placeholder="What's on your mind?"
-              value={newPost}
-              onChange={(e) => setNewPost(e.target.value)}
-            />
-            <button onClick={handlePostSubmit} className={styles.actionButton}>
-              Post
-            </button>
+            <div className={styles.postInput}>
+              <textarea
+                placeholder="What's on your mind?"
+                value={newPost}
+                onChange={(e) => setNewPost(e.target.value)}
+              />
+              <button onClick={handlePostSubmit} className={styles.actionButton}>
+                Post
+              </button>
+            </div>
+
+            <h2>Recent Posts</h2>
+            {loading ? (
+              <p>Loading posts...</p>
+            ) : posts.length === 0 ? (
+              <p>No posts yet. Be the first to start a discussion!</p>
+            ) : (
+              <ul className={styles.postList}>
+                {posts.map((post) => (
+                  <li key={post.id} className={styles.postItem}>
+                    <p>{post.content}</p>
+                    <span className={styles.postTimestamp}>
+                      {new Date(post.created_at).toLocaleString()}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </main>
+          <div className={styles.footerContainer}>
+            <Footer />
           </div>
-
-          <h2>Recent Posts</h2>
-          {loading ? (
-            <p>Loading posts...</p>
-          ) : posts.length === 0 ? (
-            <p>No posts yet. Be the first to start a discussion!</p>
-          ) : (
-            <ul className={styles.postList}>
-              {posts.map((post) => (
-                <li key={post.id} className={styles.postItem}>
-                  <p>{post.content}</p>
-                  <span className={styles.postTimestamp}>
-                    {new Date(post.created_at).toLocaleString()}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          )}
-        </main>
-        <div className={styles.footerContainer}>
-          <Footer />
         </div>
       </div>
-    </div>
+    </AppShell>
   );
 }

@@ -4,7 +4,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { supabase } from '@/lib/supabase';
-import Sidebar from '@/components/Sidebar';
+import AppShell from '@/components/AppShell';
 import Footer from '@/components/Footer';
 import styles from '@/styles/Profile.module.css'; // Now using shared CSS
 
@@ -14,7 +14,6 @@ export default function Settings() {
   const [profileImage, setProfileImage] = useState<File | null>(null);
   const [profileImageUrl, setProfileImageUrl] = useState('');
   const [loading, setLoading] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
@@ -73,30 +72,31 @@ export default function Settings() {
   if (!user) return <p>Loading...</p>;
 
   return (
-    <div className={styles.pageContainer}>
-      <Sidebar onToggle={(open) => setIsSidebarOpen(open)} />
-      <div className={styles.contentContainer}>
-        <main className={styles.mainContent}>
-          <h1>Edit Profile</h1>
+    <AppShell>
+      <div className={styles.pageContainer}>
+        <div className={styles.contentContainer}>
+          <main className={styles.mainContent}>
+            <h1>Edit Profile</h1>
 
-          <div className={styles.profileImageContainer}>
-            {profileImageUrl && <img src={profileImageUrl} alt="Profile" className={styles.profileImage} />}
-            <input type="file" accept="image/*" onChange={handleFileUpload} />
+            <div className={styles.profileImageContainer}>
+              {profileImageUrl && <img src={profileImageUrl} alt="Profile" className={styles.profileImage} />}
+              <input type="file" accept="image/*" onChange={handleFileUpload} />
+            </div>
+
+            <div className={styles.formGroup}>
+              <label>Username </label>
+              <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+            </div>
+
+            <button onClick={handleUpdateProfile} disabled={loading} className={styles.actionButton}>
+              {loading ? 'Saving...' : 'Save Changes'}
+            </button>
+          </main>
+          <div className={styles.footerContainer}>
+            <Footer />
           </div>
-
-          <div className={styles.formGroup}>
-            <label>Username </label>
-            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-          </div>
-
-          <button onClick={handleUpdateProfile} disabled={loading} className={styles.actionButton}>
-            {loading ? 'Saving...' : 'Save Changes'}
-          </button>
-        </main>
-        <div className={styles.footerContainer}>
-          <Footer />
         </div>
       </div>
-    </div>
+    </AppShell>
   );
 }
