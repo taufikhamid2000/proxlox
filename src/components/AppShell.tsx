@@ -6,6 +6,7 @@ import {
   FiX,
   FiHome,
   FiShoppingCart,
+  FiShoppingBag,
   FiMessageCircle,
   FiBook,
   FiUser,
@@ -24,6 +25,7 @@ import { signOut } from '@/lib/auth';
 const navLinks = [
   { href: '/dashboard', label: 'Dashboard', icon: FiHome },
   { href: '/marketplace', label: 'Marketplace', icon: FiShoppingCart },
+  { href: '/personal-shopper', label: 'Personal Shopper', icon: FiShoppingBag },
   { href: '/community', label: 'Community', icon: FiMessageCircle },
   { href: '/resources', label: 'Resources', icon: FiBook },
 ];

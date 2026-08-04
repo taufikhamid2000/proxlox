@@ -525,3 +525,161 @@
   color: var(--primary);
   margin-top: 5px;
 }
+
+/* Personal Shopper — request lifecycle UI */
+.tabRow {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.tabButton {
+  padding: 10px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--nav-fg-muted);
+  border-bottom: 2px solid transparent;
+  background: transparent;
+}
+
+.tabButtonActive {
+  composes: tabButton;
+  color: var(--foreground);
+  border-bottom-color: var(--primary);
+}
+
+.requestForm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+  background: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.requestForm .field {
+  flex: 1;
+  min-width: 160px;
+  margin-bottom: 0;
+}
+
+.requestList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.requestCard {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  text-align: left;
+}
+
+.requestInfo h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.requestInfo span {
+  font-size: 0.78rem;
+  color: var(--nav-fg-muted);
+}
+
+.requestActions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.smallButton {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  background: transparent;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.smallButton:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.smallButtonPrimary {
+  composes: smallButton;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+
+.smallButtonPrimary:hover {
+  color: var(--primary-foreground);
+  opacity: 0.9;
+}
+
+.smallButtonDanger {
+  composes: smallButton;
+  color: var(--destructive);
+  border-color: var(--destructive);
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.badgeRequested {
+  composes: badge;
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+}
+
+.badgeClaimed {
+  composes: badge;
+  background: rgba(124, 58, 237, 0.15);
+  color: #a78bfa;
+}
+
+.badgePurchased,
+.badgeDelivered {
+  composes: badge;
+  background: rgba(255, 138, 61, 0.15);
+  color: #ff8a3d;
+}
+
+.badgeReleased {
+  composes: badge;
+  background: rgba(45, 212, 191, 0.15);
+  color: #2dd4bf;
+}
+
+.badgeDisputed {
+  composes: badge;
+  background: rgba(220, 38, 38, 0.15);
+  color: #f87171;
+}
+
+.badgeCancelled {
+  composes: badge;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--nav-fg-muted);
+}
