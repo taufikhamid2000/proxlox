@@ -40,11 +40,14 @@ export default function Resources() {
   }, [router]);
 
   const fetchFiles = async () => {
-    const { data, error } = await supabase.storage.from('resources').list();
+    // Uploads are stored under uploads/ (see handleFileUpload) — list()
+    // with no path only returns the bucket's top-level folder entries,
+    // not the files inside them, so it must be scoped to that prefix.
+    const { data, error } = await supabase.storage.from('resources').list('uploads');
     if (error) {
       console.error('Error fetching files:', error);
     } else {
-      setFiles(data);
+      setFiles((data || []).filter((f) => f.id !== null));
     }
   };
 

@@ -51,6 +51,13 @@ export default function PersonalShopper() {
     checkUser();
   }, [router]);
 
+  // Prefill from a marketplace listing's "Request via Personal Shopper" link.
+  useEffect(() => {
+    if (typeof router.query.item === 'string') {
+      setItemName(router.query.item);
+    }
+  }, [router.query.item]);
+
   const refresh = async (uid: string) => {
     const [mine, open, claimed] = await Promise.all([
       supabase

@@ -120,7 +120,7 @@ export default function Home() {
 
           <div className="relative z-10 mt-8 flex w-full max-w-sm flex-col items-stretch gap-3 sm:mt-10 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-4">
             <Link
-              href="/browse"
+              href="/marketplace"
               className="rounded-full bg-gradient-to-r from-vicePink to-viceOrange px-8 py-3.5 text-sm font-semibold uppercase tracking-wide text-white shadow-[0_0_30px_rgba(255,62,165,0.35)] transition-transform hover:scale-105 sm:py-3"
             >
               Browse Available Items
@@ -232,7 +232,7 @@ export default function Home() {
               Get access to exclusive products, secured and delivered hassle-free.
             </p>
             <Link
-              href="/browse"
+              href="/marketplace"
               className="mt-8 inline-block rounded-full bg-gradient-to-r from-vicePink to-viceOrange px-10 py-3 text-sm font-semibold uppercase tracking-wide text-white shadow-[0_0_30px_rgba(255,62,165,0.35)] transition-transform hover:scale-105"
             >
               Browse Now
