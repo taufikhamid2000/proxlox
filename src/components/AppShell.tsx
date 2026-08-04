@@ -1,37 +1,39 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   FiMenu,
   FiX,
   FiHome,
-  FiUser,
   FiShoppingCart,
   FiMessageCircle,
   FiBook,
+  FiUser,
   FiSettings,
   FiSun,
   FiMoon,
   FiLogOut,
+  FiChevronDown,
 } from 'react-icons/fi';
+import { supabase } from '@/lib/supabase';
 import { signOut } from '@/lib/auth';
 
+// Sidebar is task-oriented content areas only — account/identity actions
+// (profile, settings, sign out) live in the header's avatar dropdown
+// instead, per the usual profile-page convention.
 const navLinks = [
   { href: '/dashboard', label: 'Dashboard', icon: FiHome },
-  { href: '/profile', label: 'My Profile', icon: FiUser },
   { href: '/marketplace', label: 'Marketplace', icon: FiShoppingCart },
   { href: '/community', label: 'Community', icon: FiMessageCircle },
   { href: '/resources', label: 'Resources', icon: FiBook },
-  { href: '/settings', label: 'Settings', icon: FiSettings },
 ];
 
-// Single app shell in the same vice-city chrome as the marketing header:
-// a sticky 56px header (gradient wordmark + hamburger left, sign-out
-// right) with the sidebar docked directly below it — a static column
-// from lg up, a slide-in drawer opened from the hamburger below that.
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [user, setUser] = useState<{ email?: string; username?: string; avatarUrl?: string } | null>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
   const [theme, setTheme] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('theme') || 'dark';
@@ -42,6 +44,18 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
   }, [theme]);
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      if (data.user) {
+        setUser({
+          email: data.user.email,
+          username: data.user.user_metadata?.username,
+          avatarUrl: data.user.user_metadata?.profileImage,
+        });
+      }
+    });
+  }, []);
 
   const toggleTheme = () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
@@ -66,6 +80,26 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     };
   }, [open]);
 
+  useEffect(() => {
+    if (!menuOpen) return;
+    function onClickOutside(e: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setMenuOpen(false);
+      }
+    }
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') setMenuOpen(false);
+    }
+    document.addEventListener('mousedown', onClickOutside);
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', onClickOutside);
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [menuOpen]);
+
+  const initial = (user?.username || user?.email || '?').charAt(0).toUpperCase();
+
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <header className="sticky top-0 z-20 flex h-14 shrink-0 items-center justify-between border-b border-navBorder bg-navBg px-4 backdrop-blur md:px-6">
@@ -87,24 +121,73 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           </Link>
         </div>
 
-        <div className="flex items-center gap-1">
+        {/* Avatar dropdown — account/identity actions, not page navigation. */}
+        <div className="relative" ref={menuRef}>
           <button
             type="button"
-            onClick={toggleTheme}
-            aria-label="Toggle theme"
-            className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-lg text-navFgMuted transition-colors hover:bg-navHoverBg hover:text-navFg"
+            onClick={() => setMenuOpen((o) => !o)}
+            aria-haspopup="menu"
+            aria-expanded={menuOpen}
+            className="flex h-11 items-center gap-2 rounded-full pl-1 pr-2 text-navFgMuted transition-colors hover:bg-navHoverBg hover:text-navFg"
           >
-            {theme === 'dark' ? <FiSun size={18} /> : <FiMoon size={18} />}
+            <span className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-vicePink to-viceOrange text-xs font-bold text-white">
+              {user?.avatarUrl ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={user.avatarUrl} alt="" className="h-full w-full object-cover" />
+              ) : (
+                initial
+              )}
+            </span>
+            <FiChevronDown size={14} className={`hidden transition-transform sm:block ${menuOpen ? 'rotate-180' : ''}`} />
           </button>
-          <button
-            type="button"
-            onClick={() => signOut()}
-            aria-label="Sign out"
-            className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-lg text-navFgMuted transition-colors hover:bg-navHoverBg hover:text-destructive sm:h-auto sm:w-auto sm:rounded-full sm:px-4 sm:py-2"
-          >
-            <FiLogOut size={18} className="sm:hidden" />
-            <span className="hidden text-sm font-medium sm:inline">Sign Out</span>
-          </button>
+
+          {menuOpen && (
+            <div
+              role="menu"
+              className="absolute right-0 top-14 z-30 w-56 overflow-hidden rounded-xl border border-navBorder bg-navBg py-1 shadow-xl"
+            >
+              {user?.email && (
+                <div className="border-b border-navBorder px-4 py-3">
+                  <p className="truncate text-sm font-medium text-navFg">{user.username || 'Account'}</p>
+                  <p className="truncate text-xs text-navFgMuted">{user.email}</p>
+                </div>
+              )}
+
+              <Link
+                href="/profile"
+                role="menuitem"
+                onClick={() => setMenuOpen(false)}
+                className="flex items-center gap-3 px-4 py-2.5 text-sm text-navFgMuted transition-colors hover:bg-navHoverBg hover:text-navFg"
+              >
+                <FiUser size={16} /> My Profile
+              </Link>
+              <Link
+                href="/settings"
+                role="menuitem"
+                onClick={() => setMenuOpen(false)}
+                className="flex items-center gap-3 px-4 py-2.5 text-sm text-navFgMuted transition-colors hover:bg-navHoverBg hover:text-navFg"
+              >
+                <FiSettings size={16} /> Settings
+              </Link>
+              <button
+                type="button"
+                role="menuitem"
+                onClick={toggleTheme}
+                className="flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm text-navFgMuted transition-colors hover:bg-navHoverBg hover:text-navFg"
+              >
+                {theme === 'dark' ? <FiSun size={16} /> : <FiMoon size={16} />}
+                {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+              </button>
+              <button
+                type="button"
+                role="menuitem"
+                onClick={() => signOut()}
+                className="flex w-full items-center gap-3 border-t border-navBorder px-4 py-2.5 text-left text-sm text-navFgMuted transition-colors hover:bg-navHoverBg hover:text-destructive"
+              >
+                <FiLogOut size={16} /> Sign Out
+              </button>
+            </div>
+          )}
         </div>
       </header>
 
