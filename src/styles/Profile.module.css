@@ -262,16 +262,29 @@
 }
 
 .field input[type='text'],
-.field input[type='email'] {
+.field input[type='email'],
+.field input[type='number'] {
   padding: 10px 12px;
   border: 1px solid var(--border);
   border-radius: 8px;
   background: var(--background);
   color: var(--foreground);
+  color-scheme: light;
+}
+
+/* Native spinner/autofill chrome (mainly relevant to type=number) needs
+   its own light/dark signal — color-scheme doesn't follow --foreground
+   the way our other CSS vars do, so it has to be set explicitly per
+   theme rather than left at the browser default. */
+:global(.dark) .field input[type='text'],
+:global(.dark) .field input[type='email'],
+:global(.dark) .field input[type='number'] {
+  color-scheme: dark;
 }
 
 .field input[type='text']:focus,
-.field input[type='email']:focus {
+.field input[type='email']:focus,
+.field input[type='number']:focus {
   outline: none;
   border-color: var(--primary);
 }
