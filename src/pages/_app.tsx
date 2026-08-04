@@ -7,10 +7,10 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>EduBridge - Learn, Earn, Grow</title>
+        <title>Proxlox</title>
         <meta
           name="description"
-          content="Empowering students and educators with tools to learn, earn and grow."
+          content="Proxlox connects buyers with trusted resellers and personal shoppers for limited-edition drops."
         />
       </Head>
       <Component {...pageProps} />
