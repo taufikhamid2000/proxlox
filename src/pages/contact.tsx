@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useState } from 'react';
+import Head from 'next/head';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Reveal from '@/components/Reveal';
@@ -25,6 +26,9 @@ export default function Contact() {
 
   return (
     <div className="bg-viceInk">
+      <Head>
+        <title>Contact | Proxlox</title>
+      </Head>
       <Header />
 
       {/* Introduction (Reusing Shared Styles) */}

@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import AppShell from '@/components/AppShell';
@@ -41,6 +42,9 @@ export default function ProductDetail() {
 
   return (
     <AppShell>
+      <Head>
+        <title>{notFound ? 'Item Not Found' : product?.name || 'Marketplace'} | Proxlox</title>
+      </Head>
       <div className={styles.pageContainer}>
         <div className={styles.contentContainer}>
           <main className={styles.wideWrap}>

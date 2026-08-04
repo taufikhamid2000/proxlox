@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { signUp } from '@/lib/auth';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
@@ -42,6 +43,9 @@ export default function SignUp() {
 
   return (
     <div className="bg-viceInk">
+      <Head>
+        <title>Sign Up | Proxlox</title>
+      </Head>
       <Header />
 
       <section

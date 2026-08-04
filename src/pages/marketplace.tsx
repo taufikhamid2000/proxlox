@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 import { supabase } from '@/lib/supabase';
 import AppShell from '@/components/AppShell';
 import Footer from '@/components/Footer';
@@ -42,6 +43,9 @@ export default function Marketplace() {
 
   return (
     <AppShell>
+      <Head>
+        <title>Marketplace | Proxlox</title>
+      </Head>
       <div className={styles.pageContainer}>
         <div className={styles.contentContainer}>
           {/* Wide canvas — a browsing task wants more visible options at

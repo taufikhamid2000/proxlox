@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import AppShell from '@/components/AppShell';
@@ -197,6 +198,9 @@ export default function Dashboard() {
 
   return (
     <AppShell>
+      <Head>
+        <title>Dashboard | Proxlox</title>
+      </Head>
       <div className={styles.dashboardContainer}>
         <div className={styles.dashboardContent}>
           {/* Low-weight context row — the F-pattern's top-left slot goes

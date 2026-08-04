@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 // pages/terms.tsx
 
+import Head from 'next/head';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Reveal from '@/components/Reveal';
@@ -10,6 +11,9 @@ import Link from 'next/link';
 export default function Terms() {
   return (
     <div className="bg-viceInk">
+      <Head>
+        <title>Terms & Conditions | Proxlox</title>
+      </Head>
       <Header />
 
       {/* Introduction */}

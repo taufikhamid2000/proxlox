@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 import { supabase } from '@/lib/supabase';
 import { authorizePayment, releasePayment } from '@/lib/payments';
 import AppShell from '@/components/AppShell';
@@ -176,6 +177,9 @@ export default function PersonalShopper() {
 
   return (
     <AppShell>
+      <Head>
+        <title>Personal Shopper | Proxlox</title>
+      </Head>
       <div className={styles.pageContainer}>
         <div className={styles.contentContainer}>
           <main className={styles.wideWrap}>

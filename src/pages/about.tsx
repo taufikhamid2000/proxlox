@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
+import Head from 'next/head';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Reveal from '@/components/Reveal';
@@ -8,6 +9,9 @@ import Link from 'next/link';
 export default function About() {
   return (
     <div className="bg-viceInk">
+      <Head>
+        <title>About | Proxlox</title>
+      </Head>
       <Header />
 
       {/* Introduction */}

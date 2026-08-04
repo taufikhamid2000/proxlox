@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Reveal from '@/components/Reveal';
@@ -7,6 +8,9 @@ import Link from 'next/link';
 export default function Privacy() {
   return (
     <div className="bg-viceInk">
+      <Head>
+        <title>Privacy Policy | Proxlox</title>
+      </Head>
       <Header />
 
       {/* Introduction */}
