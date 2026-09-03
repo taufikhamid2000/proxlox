@@ -29,16 +29,12 @@ export default function Resources() {
   useEffect(() => {
     const checkUser = async () => {
       const { data } = await supabase.auth.getUser();
-      if (!data.user) {
-        router.push('/sign-in');
-      } else {
-        setUser(data.user);
-        fetchFiles();
-      }
+      setUser(data.user || null);
     };
 
     checkUser();
-  }, [router]);
+    fetchFiles();
+  }, []);
 
   const fetchFiles = async () => {
     // Uploads are stored under uploads/ (see handleFileUpload) — list()
@@ -53,7 +49,11 @@ export default function Resources() {
   };
 
   const handleFileUpload = async () => {
-    if (!selectedFile || !user) return;
+    if (!user) {
+      router.push('/sign-in');
+      return;
+    }
+    if (!selectedFile) return;
     setUploading(true);
 
     const fileExt = selectedFile.name.split('.').pop();
@@ -74,8 +74,6 @@ export default function Resources() {
     }
   };
 
-  if (!user) return <p>Loading...</p>;
-
   return (
     <AppShell>
       <Head>
@@ -91,9 +89,13 @@ export default function Resources() {
 
             <Reveal>
               <div className={styles.uploadCard}>
-                <input type="file" onChange={(e) => setSelectedFile(e.target.files?.[0] || null)} />
+                <input
+                  type="file"
+                  onChange={(e) => setSelectedFile(e.target.files?.[0] || null)}
+                  disabled={!user}
+                />
                 <button onClick={handleFileUpload} disabled={uploading} className={styles.actionButton}>
-                  {uploading ? 'Uploading...' : 'Upload File'}
+                  {!user ? 'Sign in to upload' : uploading ? 'Uploading...' : 'Upload File'}
                 </button>
               </div>
             </Reveal>

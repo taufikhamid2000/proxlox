@@ -15,17 +15,16 @@ export default function ProductDetail() {
   const [product, setProduct] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => setUser(data.user || null));
+  }, []);
 
   useEffect(() => {
     if (!id || typeof id !== 'string') return;
 
-    const checkUserAndFetch = async () => {
-      const { data: userData } = await supabase.auth.getUser();
-      if (!userData.user) {
-        router.push('/sign-in');
-        return;
-      }
-
+    const fetchProduct = async () => {
       const { data, error } = await supabase.from('marketplace').select('*').eq('id', id).single();
       if (error || !data) {
         setNotFound(true);
@@ -35,8 +34,15 @@ export default function ProductDetail() {
       setLoading(false);
     };
 
-    checkUserAndFetch();
-  }, [id, router]);
+    fetchProduct();
+  }, [id]);
+
+  const handleRequest = (e: React.MouseEvent) => {
+    if (!user) {
+      e.preventDefault();
+      router.push('/sign-in');
+    }
+  };
 
   if (loading) return <p>Loading...</p>;
 
@@ -72,11 +78,12 @@ export default function ProductDetail() {
                     {product.description && <p style={{ marginTop: 12 }}>{product.description}</p>}
                     <div style={{ marginTop: 20, display: 'flex', gap: 12, flexWrap: 'wrap' }}>
                       <Link
-                        href={`/personal-shopper?item=${encodeURIComponent(product.name)}`}
+                        href={user ? `/personal-shopper?item=${encodeURIComponent(product.name)}` : '/sign-in'}
+                        onClick={handleRequest}
                         className={styles.actionButton}
                         style={{ marginTop: 0 }}
                       >
-                        Request via Personal Shopper
+                        {user ? 'Request via Personal Shopper' : 'Sign in to Request'}
                       </Link>
                       <Link href="/marketplace" className={styles.smallButton} style={{ padding: '10px 18px' }}>
                         Back to Marketplace

@@ -29,16 +29,12 @@ export default function Community() {
   useEffect(() => {
     const checkUser = async () => {
       const { data } = await supabase.auth.getUser();
-      if (!data.user) {
-        router.push('/sign-in');
-      } else {
-        setUser(data.user);
-        fetchPosts();
-      }
+      setUser(data.user || null);
     };
 
     checkUser();
-  }, [router]);
+    fetchPosts();
+  }, []);
 
   const fetchPosts = async () => {
     const { data, error } = await supabase
@@ -54,6 +50,10 @@ export default function Community() {
   };
 
   const handlePostSubmit = async () => {
+    if (!user) {
+      router.push('/sign-in');
+      return;
+    }
     if (!newPost.trim()) return;
     const { error } = await supabase
       .from('community_posts')
@@ -65,8 +65,6 @@ export default function Community() {
       fetchPosts(); // Refresh posts
     }
   };
-
-  if (!user) return <p>Loading...</p>;
 
   const myInitial = (user?.user_metadata?.username || user?.email || '?').charAt(0).toUpperCase();
 
@@ -91,13 +89,14 @@ export default function Community() {
                 <div className={styles.composerAvatar}>{myInitial}</div>
                 <div className={styles.composerBody}>
                   <textarea
-                    placeholder="What's on your mind?"
+                    placeholder={user ? "What's on your mind?" : 'Sign in to join the conversation'}
                     value={newPost}
                     onChange={(e) => setNewPost(e.target.value)}
+                    disabled={!user}
                   />
                   <div className={styles.composerActions}>
                     <button onClick={handlePostSubmit} className={styles.actionButton}>
-                      Post
+                      {user ? 'Post' : 'Sign in to post'}
                     </button>
                   </div>
                 </div>

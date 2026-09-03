@@ -10,24 +10,13 @@ import Reveal from '@/components/Reveal';
 import styles from '@/styles/Profile.module.css'; // Using shared CSS
 
 export default function Marketplace() {
-  const [user, setUser] = useState<any>(null);
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
-    const checkUser = async () => {
-      const { data } = await supabase.auth.getUser();
-      if (!data.user) {
-        router.push('/sign-in');
-      } else {
-        setUser(data.user);
-        fetchProducts();
-      }
-    };
-
-    checkUser();
-  }, [router]);
+    fetchProducts();
+  }, []);
 
   const fetchProducts = async () => {
     const { data, error } = await supabase.from('marketplace').select('*');
@@ -38,8 +27,6 @@ export default function Marketplace() {
     }
     setLoading(false);
   };
-
-  if (!user) return <p>Loading...</p>;
 
   return (
     <AppShell>
