@@ -22,3 +22,13 @@ export const signOut = async () => {
   await supabase.auth.signOut();
   window.location.href = "/";
 };
+
+// "Try the demo — no account needed": anonymous Supabase sign-in so a
+// visitor can poke around the dashboard/marketplace without creating an
+// account first.
+export const startDemo = async () => {
+  const { data, error } = await supabase.auth.signInAnonymously();
+
+  if (error) throw error;
+  return data.session;
+};

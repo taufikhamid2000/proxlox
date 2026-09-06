@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { signIn } from '@/lib/auth';
+import { signIn, startDemo } from '@/lib/auth';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -12,6 +12,7 @@ export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [demoLoading, setDemoLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
@@ -32,6 +33,24 @@ export default function SignIn() {
     }
 
     setLoading(false);
+  };
+
+  const handleDemo = async () => {
+    setDemoLoading(true);
+    setError(null);
+
+    try {
+      const session = await startDemo();
+      if (session) {
+        router.push('/dashboard');
+      }
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : 'The demo is unavailable right now. Please try again.'
+      );
+    }
+
+    setDemoLoading(false);
   };
 
   return (
@@ -90,6 +109,22 @@ export default function SignIn() {
               {loading ? 'Signing In…' : 'Sign In'}
             </button>
           </form>
+
+          <div className="my-4 flex items-center gap-3">
+            <div className="h-px flex-1 bg-border" />
+            <span className="text-xs text-foreground/40">or</span>
+            <div className="h-px flex-1 bg-border" />
+          </div>
+
+          <button
+            type="button"
+            onClick={handleDemo}
+            disabled={demoLoading}
+            className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-primary/40 bg-primary/5 px-5 py-2.5 text-sm font-medium text-primary transition-colors hover:bg-primary/10 disabled:cursor-not-allowed disabled:opacity-50 active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+          >
+            {demoLoading && <Spinner />}
+            {demoLoading ? 'Starting demo…' : 'Try the demo — no account needed'}
+          </button>
 
           <p className="mt-6 text-center text-sm text-foreground/60">
             Don&apos;t have an account?{' '}
